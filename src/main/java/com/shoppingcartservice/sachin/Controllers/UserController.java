@@ -31,10 +31,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(UserCredentials user) {
-        return userService.login(user);
-    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(UserCredentials user) {
+//        return userService.login(user);
+//    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@FormParam("name") String name,@FormParam("email") String email,@FormParam("password") String password) {

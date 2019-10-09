@@ -143,7 +143,7 @@ public class CartService {
                 if (cartItem.getProduct().equals(product)) {
                     if(cartItem.getQuantity()==1 && operation==0) {
                         cartItemRepo.delete(cartItem);
-                        cartRepo.save(cart);
+//                        cartRepo.save(cart);
                         return ResponseEntity.ok(product.getName()+" removed successfully!!!");
                     }
                     else if(operation==1)
