@@ -1,4 +1,4 @@
-package com.shoppingcartservice.sachin.Entities;
+package com.shoppingcartservice.sachin.Entities.User;
 
 import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,6 @@
 package com.shoppingcartservice.sachin.Controllers;
 
 import com.shoppingcartservice.sachin.Config.JwtTokenUtil;
-import com.shoppingcartservice.sachin.Entities.Address;
-import com.shoppingcartservice.sachin.Entities.UserCredentials;
-import com.shoppingcartservice.sachin.Entities.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.AddressRepo;
 import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
 import com.shoppingcartservice.sachin.Reposistories.UserProfileRepo;

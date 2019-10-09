@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -35,17 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/login").permitAll()
-                .usernameParameter("email");
-//                .httpBasic();
-//                .formLogin()
-//                .loginProcessingUrl("/signin")
-//                .loginPage("/login").permitAll()
-//                .usernameParameter("txtUsername")
-//                .passwordParameter("txtPassword")
-//                .and()
-//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-//                .and()
-//                .rememberMe().tokenValiditySeconds(2592000).key("mySecret!").rememberMeParameter("checkRememberMe");
+                .usernameParameter("email")
+                .and()
+                .logout().logoutRequestMatcher( new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/");
     }
 
     @Bean

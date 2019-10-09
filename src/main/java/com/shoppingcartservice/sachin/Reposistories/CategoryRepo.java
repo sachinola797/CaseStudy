@@ -1,8 +1,7 @@
 package com.shoppingcartservice.sachin.Reposistories;
 
-import com.shoppingcartservice.sachin.Entities.ProductCategory;
+import com.shoppingcartservice.sachin.Entities.Product.ProductCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 
 @Repository

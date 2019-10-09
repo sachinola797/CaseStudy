@@ -1,9 +1,9 @@
 package com.shoppingcartservice.sachin.Services;
 
-import com.shoppingcartservice.sachin.Entities.Cart;
-import com.shoppingcartservice.sachin.Entities.CartItem;
-import com.shoppingcartservice.sachin.Entities.Product;
-import com.shoppingcartservice.sachin.Entities.UserProfile;
+import com.shoppingcartservice.sachin.Entities.Cart.Cart;
+import com.shoppingcartservice.sachin.Entities.Cart.CartItem;
+import com.shoppingcartservice.sachin.Entities.Product.Product;
+import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.CartItemRepo;
 import com.shoppingcartservice.sachin.Reposistories.CartRepo;
 import com.shoppingcartservice.sachin.Reposistories.ProductRepo;

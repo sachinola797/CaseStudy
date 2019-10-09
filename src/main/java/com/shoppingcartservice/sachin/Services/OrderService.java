@@ -1,6 +1,10 @@
 package com.shoppingcartservice.sachin.Services;
 
-import com.shoppingcartservice.sachin.Entities.*;
+import com.shoppingcartservice.sachin.Entities.Cart.Cart;
+import com.shoppingcartservice.sachin.Entities.Cart.CartItem;
+import com.shoppingcartservice.sachin.Entities.Order.OrderItem;
+import com.shoppingcartservice.sachin.Entities.Order.Orders;
+import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

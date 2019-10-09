@@ -1,4 +1,4 @@
-package com.shoppingcartservice.sachin.Entities;
+package com.shoppingcartservice.sachin.Entities.User;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

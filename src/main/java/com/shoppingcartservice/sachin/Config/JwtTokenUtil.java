@@ -1,6 +1,6 @@
 package com.shoppingcartservice.sachin.Config;
 
-import com.shoppingcartservice.sachin.Entities.UserCredentials;
+import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

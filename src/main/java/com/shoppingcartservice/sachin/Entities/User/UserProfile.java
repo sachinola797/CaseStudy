@@ -1,9 +1,7 @@
-package com.shoppingcartservice.sachin.Entities;
+package com.shoppingcartservice.sachin.Entities.User;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import java.util.List;
 
 @Entity
 public class UserProfile {

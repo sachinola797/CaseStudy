@@ -1,21 +1,24 @@
-package com.shoppingcartservice.sachin.Entities;
+package com.shoppingcartservice.sachin.Entities.Order;
+
+import com.shoppingcartservice.sachin.Entities.Product.Product;
 
 import javax.persistence.*;
 
 @Entity
-public class CartItem {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartItemId;
+public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int orderItemId;
     private int quantity;
     @ManyToOne
     private Product product;
 
-    public int getCartItemId() {
-        return cartItemId;
+    public int getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setCartItemId(int cartItemId) {
-        this.cartItemId = cartItemId;
+    public void setOrderItemId(int orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public int getQuantity() {

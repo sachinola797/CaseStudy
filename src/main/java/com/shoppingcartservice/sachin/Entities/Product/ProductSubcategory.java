@@ -1,4 +1,4 @@
-package com.shoppingcartservice.sachin.Entities;
+package com.shoppingcartservice.sachin.Entities.Product;
 
 import javax.persistence.*;
 import java.util.ArrayList;

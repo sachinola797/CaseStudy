@@ -2,20 +2,18 @@ package com.shoppingcartservice.sachin.Services;
 
 
 
-import com.shoppingcartservice.sachin.Entities.*;
+import com.shoppingcartservice.sachin.Entities.Product.Product;
+import com.shoppingcartservice.sachin.Entities.Product.ProductCategory;
+import com.shoppingcartservice.sachin.Entities.Product.ProductSubcategory;
 import com.shoppingcartservice.sachin.Reposistories.*;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.SpringCacheAnnotationParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 

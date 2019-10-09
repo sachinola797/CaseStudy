@@ -1,4 +1,4 @@
-package com.shoppingcartservice.sachin.Entities;
+package com.shoppingcartservice.sachin.Entities.User;
 
 import javax.persistence.*;
 

@@ -1,8 +1,7 @@
 package com.shoppingcartservice.sachin.Reposistories;
 
-import com.shoppingcartservice.sachin.Entities.Product;
-import com.shoppingcartservice.sachin.Entities.ProductCategory;
-import com.shoppingcartservice.sachin.Entities.ProductSubcategory;
+import com.shoppingcartservice.sachin.Entities.Product.Product;
+import com.shoppingcartservice.sachin.Entities.Product.ProductCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
