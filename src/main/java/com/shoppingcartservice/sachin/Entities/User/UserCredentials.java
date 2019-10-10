@@ -1,5 +1,7 @@
 package com.shoppingcartservice.sachin.Entities.User;
 
+import com.shoppingcartservice.sachin.Config.UserProfile;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;

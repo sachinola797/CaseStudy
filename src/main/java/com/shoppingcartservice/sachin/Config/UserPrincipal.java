@@ -1,5 +1,6 @@
-package com.shoppingcartservice.sachin.Entities.User;
+package com.shoppingcartservice.sachin.Config;
 
+import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

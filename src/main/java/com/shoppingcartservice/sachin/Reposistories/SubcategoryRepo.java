@@ -1,11 +1,15 @@
 package com.shoppingcartservice.sachin.Reposistories;
 
-import com.shoppingcartservice.sachin.Entities.Product.ProductSubcategory;
+import com.shoppingcartservice.sachin.Entities.Product.Product;
+import com.shoppingcartservice.sachin.Entities.Product.Subcategory;
+import org.hibernate.validator.constraints.EAN;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface SubcategoryRepo extends JpaRepository<ProductSubcategory,Integer> {
-    ProductSubcategory getProductSubcategoryBySubcategoryId(Integer subcategoryId);
-    ProductSubcategory getProductSubcategoryByName(String name);
+public interface SubcategoryRepo extends JpaRepository<Subcategory,Integer> {
+    Subcategory getSubcategoryBySubcategoryId(Integer subcategoryId);
+    Subcategory getSubcategoryByName(String name);
 }

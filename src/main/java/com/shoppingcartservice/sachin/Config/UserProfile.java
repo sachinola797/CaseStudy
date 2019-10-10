@@ -1,5 +1,7 @@
-package com.shoppingcartservice.sachin.Entities.User;
+package com.shoppingcartservice.sachin.Config;
 
+
+import com.shoppingcartservice.sachin.Entities.User.Address;
 
 import javax.persistence.*;
 

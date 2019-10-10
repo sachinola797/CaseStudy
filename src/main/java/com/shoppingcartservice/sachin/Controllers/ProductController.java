@@ -24,14 +24,14 @@ public class ProductController {
     }
 
     @GetMapping("/getById/{productId}")
-    public ResponseEntity<?> getProduct1(@PathVariable("productId") Integer productId) {
-        return productServices.getProduct1(productId);
+    public ResponseEntity<?> getProductById(@PathVariable("productId") Integer productId) {
+        return productServices.getProductById(productId);
     }
 
 
     @GetMapping("/{category}")
-    public ResponseEntity<?> getProduct2(@PathVariable("category") String category) {
-        return productServices.getProduct2(category);
+    public ResponseEntity<?> getProductByCategory(@PathVariable("category") String category) {
+        return productServices.getProductByCategory(category);
     }
 
     @GetMapping("/search/{searchString}")

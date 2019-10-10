@@ -1,5 +1,6 @@
-package com.shoppingcartservice.sachin.Entities.User;
+package com.shoppingcartservice.sachin.Config;
 
+import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

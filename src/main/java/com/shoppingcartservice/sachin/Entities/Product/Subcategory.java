@@ -6,17 +6,18 @@ import java.util.List;
 
 
 @Entity
-public class ProductSubcategory {
+public class Subcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subcategoryId;
     private String name;
 
 
-    public ProductSubcategory() {
+
+    public Subcategory() {
     }
 
-    public ProductSubcategory(String name) {
+    public Subcategory(String name) {
         this.name = name;
     }
 
@@ -35,5 +36,6 @@ public class ProductSubcategory {
     public void setName(String name) {
         this.name = name;
     }
+
 
 }

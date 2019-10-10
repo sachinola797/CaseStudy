@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shoppingcartservice.sachin.Config.JwtTokenUtil;
 import com.shoppingcartservice.sachin.Entities.User.Address;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
-import com.shoppingcartservice.sachin.Entities.User.UserProfile;
+import com.shoppingcartservice.sachin.Config.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.AddressRepo;
 import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
 import com.shoppingcartservice.sachin.Reposistories.UserProfileRepo;

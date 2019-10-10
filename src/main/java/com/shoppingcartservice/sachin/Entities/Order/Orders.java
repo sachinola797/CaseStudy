@@ -1,6 +1,6 @@
 package com.shoppingcartservice.sachin.Entities.Order;
 
-import com.shoppingcartservice.sachin.Entities.User.UserProfile;
+import com.shoppingcartservice.sachin.Config.UserProfile;
 
 import javax.persistence.*;
 import java.util.List;

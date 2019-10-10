@@ -11,13 +11,10 @@ public class Product {
     private double price;
     private String details;
 
-    @ManyToOne
-    @JoinColumn(name="categoryId")
-    private ProductCategory productCategory;
-
     @ManyToMany
-    @JoinColumn(name="subcategoryId")
-    private List<ProductSubcategory> productSubcategories;
+    private List<Subcategory> subcategories;
+
+
 
     public int getProductId() {
         return productId;
@@ -51,20 +48,13 @@ public class Product {
         this.details = details;
     }
 
-    public ProductCategory getProductCategory() {
-        return productCategory;
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
     }
 
-    public void setProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
     }
 
-    public List<ProductSubcategory> getProductSubcategories() {
-        return productSubcategories;
-    }
-
-    public void setProductSubcategories(List<ProductSubcategory> productSubcategories) {
-        this.productSubcategories = productSubcategories;
-    }
 
 }
