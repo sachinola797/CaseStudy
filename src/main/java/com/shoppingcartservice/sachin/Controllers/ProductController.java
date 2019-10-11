@@ -1,10 +1,12 @@
 package com.shoppingcartservice.sachin.Controllers;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.shoppingcartservice.sachin.DTOs.ProductDTO;
 import com.shoppingcartservice.sachin.Services.ProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/products")
@@ -14,13 +16,22 @@ public class ProductController {
     private ProductServices productServices;
 
     @PostMapping("/addProduct")
-    public ResponseEntity<?> addProduct(@RequestBody ObjectNode productDetails) {
-        return productServices.addProduct(productDetails);
+    public ResponseEntity<?> addProduct(ProductDTO productDTO) {
+        int verify=productDTO.isNullEntriesPresent();
+        if(verify==1)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more fields are empty...");
+
+        return productServices.addProduct(productDTO);
     }
 
     @PostMapping("/updateProduct")
-    public ResponseEntity<?> updateProduct(@RequestBody ObjectNode productDetails) {
-        return productServices.updateProduct(productDetails);
+    public ResponseEntity<?> updateProduct( ProductDTO productDTO) {
+        int verify=productDTO.isNullEntriesPresent();
+        if(verify==1)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more fields are empty...");
+        if(verify==2)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please Provide Product Id...");
+        return productServices.updateProduct(productDTO);
     }
 
     @GetMapping("/getById/{productId}")

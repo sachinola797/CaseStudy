@@ -1,7 +1,5 @@
 package com.shoppingcartservice.sachin.Entities.User;
 
-import com.shoppingcartservice.sachin.Config.UserProfile;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +12,7 @@ public class UserCredentials {
     private String email;
     private String password;
 
-    private int active;
+    private int active=1;
 
     private String roles = "";
 
@@ -24,13 +22,12 @@ public class UserCredentials {
 
     private String token;
 
-    public UserCredentials() { }
+    public UserCredentials() { this.roles="USER";}
 
     public UserCredentials(String email, String password, String roles) {
         this.email = email;
         this.password = password;
         this.roles = roles;
-        this.active = 1;
     }
 
     public String getToken() {

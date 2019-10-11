@@ -21,16 +21,16 @@ public class DbInit implements CommandLineRunner {
     @Override
     public void run(String... args) {
         // Delete all
-        this.userCredentialsRepo.deleteAll();
+       // this.userCredentialsRepo.deleteAll();
 
         // Crete users
-        UserCredentials dan = new UserCredentials("dan",passwordEncoder.encode("dan123"),"USER");
-        UserCredentials admin = new UserCredentials("admin",passwordEncoder.encode("admin123"),"ADMIN");
-        UserCredentials manager = new UserCredentials("manager",passwordEncoder.encode("manager123"),"MANAGER");
-
-        List<UserCredentials> users = Arrays.asList(dan,admin,manager);
-
-        // Save to db
-        this.userCredentialsRepo.saveAll(users);
+//        UserCredentials dan = new UserCredentials("dan",passwordEncoder.encode("dan123"),"USER");
+//        UserCredentials admin = new UserCredentials("admin",passwordEncoder.encode("admin123"),"ADMIN");
+//        UserCredentials manager = new UserCredentials("manager",passwordEncoder.encode("manager123"),"MANAGER");
+//
+//        List<UserCredentials> users = Arrays.asList(dan,admin,manager);
+//
+//        // Save to db
+//        this.userCredentialsRepo.saveAll(users);
     }
 }

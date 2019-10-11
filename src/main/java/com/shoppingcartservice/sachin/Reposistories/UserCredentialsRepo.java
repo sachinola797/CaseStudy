@@ -1,7 +1,7 @@
 package com.shoppingcartservice.sachin.Reposistories;
 
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
-import com.shoppingcartservice.sachin.Config.UserProfile;
+import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

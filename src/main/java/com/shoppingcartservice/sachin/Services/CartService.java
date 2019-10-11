@@ -3,7 +3,7 @@ package com.shoppingcartservice.sachin.Services;
 import com.shoppingcartservice.sachin.Entities.Cart.Cart;
 import com.shoppingcartservice.sachin.Entities.Cart.CartItem;
 import com.shoppingcartservice.sachin.Entities.Product.Product;
-import com.shoppingcartservice.sachin.Config.UserProfile;
+import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.CartItemRepo;
 import com.shoppingcartservice.sachin.Reposistories.CartRepo;
 import com.shoppingcartservice.sachin.Reposistories.ProductRepo;
@@ -29,8 +29,6 @@ public class CartService {
 
     public ResponseEntity<?> getCart(Integer userId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
-        if(user==null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User doesn't Exist!!!");
         Cart cart=cartRepo.findCartByUserProfile(user);
         if(cart==null){
             cart= new Cart();
@@ -46,8 +44,6 @@ public class CartService {
     public ResponseEntity<?> addProductToCart(Integer userId,Integer productId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         Product product=productRepo.findProductByProductId(productId);
-        if(user==null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User doesn't Exist!!!");
         if(product==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't Exist!!!");
 
@@ -86,8 +82,6 @@ public class CartService {
     public ResponseEntity<?> getCartItem(Integer userId,Integer cartItemId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         CartItem cartItem=cartItemRepo.getCartItemByCartItemId(cartItemId);
-        if(user==null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User doesn't Exist!!!");
         if(cartItem==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cart Item doesn't Exist anymore!!!");
         Cart cart=cartRepo.findCartByUserProfile(user);
@@ -101,9 +95,8 @@ public class CartService {
     public ResponseEntity<?> removeProductFromCart(Integer userId,Integer productId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         Product product=productRepo.findProductByProductId(productId);
-        if(user==null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User doesn't Exist!!!");
-        else if(product==null)
+
+        if(product==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't Exist!!!");
 
         Cart cart=cartRepo.findCartByUserProfile(user);
@@ -120,11 +113,9 @@ public class CartService {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sorry, your cart doesn't contains this item!!!");
     }
 
-    public ResponseEntity<?> changeQuantity(Integer userId,Integer productId, Integer operation) {
+    public ResponseEntity<?> changeQuantity1(Integer userId,Integer productId, Integer quantity) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         Product product=productRepo.findProductByProductId(productId);
-        if(user==null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User doesn't Exist!!!");
         if(product==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't Exist!!!");
 
@@ -133,23 +124,17 @@ public class CartService {
             cart= new Cart();
             cart.setUserProfile(user);
         }
-        System.out.println("all good");
         List<CartItem> cartItems=cart.getCartItems();
 
         if(cartItems!=null) {
-            System.out.println("into if 1");
             for(CartItem cartItem:cartItems){
-                System.out.println("into for loop");
                 if (cartItem.getProduct().equals(product)) {
-                    if(cartItem.getQuantity()==1 && operation==0) {
+                    if(quantity<1) {
                         cartItemRepo.delete(cartItem);
-//                        cartRepo.save(cart);
                         return ResponseEntity.ok(product.getName()+" removed successfully!!!");
                     }
-                    else if(operation==1)
-                        cartItem.setQuantity(cartItem.getQuantity() + 1);
-                    else if(cartItem.getQuantity()>1 && operation==0)
-                        cartItem.setQuantity(cartItem.getQuantity() - 1);
+                    else
+                        cartItem.setQuantity(quantity);
                     cartItemRepo.save(cartItem);
                     cartRepo.save(cart);
                     return ResponseEntity.ok(cartItem);
@@ -158,18 +143,45 @@ public class CartService {
         }
         else
             cartItems=new ArrayList<>();
-        if(operation==1) {
+        if(quantity>0) {
             CartItem cartItem = new CartItem();
             cartItem.setProduct(product);
-            cartItem.setQuantity(1);
+            cartItem.setQuantity(quantity);
             cartItemRepo.save(cartItem);
             cartItems.add(cartItem);
             cart.setCartItems(cartItems);
-
             cartRepo.save(cart);
-
             return ResponseEntity.ok(cartItem);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product is not available in the cart!!!");
     }
+
+    public ResponseEntity<?> changeQuantity2(Integer userId,Integer cartItemId, Integer quantity) {
+        UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
+        CartItem cartItem=cartItemRepo.getCartItemByCartItemId(cartItemId);
+        if(cartItem==null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CartItem doesn't Exist!!!");
+        Cart cart=cartRepo.findCartByUserProfile(user);
+        if(cart==null){
+            cart= new Cart();
+            cart.setUserProfile(user);
+        }
+
+        List<CartItem> cartItems=cart.getCartItems();
+
+        if(cartItems!=null && cartItems.contains(cartItem)) {
+            if (quantity <1) {
+                cartItemRepo.delete(cartItem);
+                return ResponseEntity.ok(cartItem.getProduct().getName() + " removed successfully!!!");
+            } else
+                cartItem.setQuantity(quantity);
+            cartItemRepo.save(cartItem);
+            cartRepo.save(cart);
+            return ResponseEntity.ok(cartItem);
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("This cart item doesn't belongs to you...");
+    }
+
+
 }

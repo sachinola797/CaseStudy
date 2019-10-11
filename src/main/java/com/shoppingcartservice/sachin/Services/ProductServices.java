@@ -2,6 +2,7 @@ package com.shoppingcartservice.sachin.Services;
 
 
 
+import com.shoppingcartservice.sachin.DTOs.ProductDTO;
 import com.shoppingcartservice.sachin.Entities.Product.Product;
 import com.shoppingcartservice.sachin.Entities.Product.Category;
 import com.shoppingcartservice.sachin.Entities.Product.Subcategory;
@@ -28,36 +29,36 @@ public class ProductServices {
     private SubcategoryRepo subcategoryRepo;
 
 
-    public ResponseEntity<?> addProduct(ObjectNode productDetails) {
+    public ResponseEntity<?> addProduct(ProductDTO productDTO) {
         Product product = new Product();
-        product.setName(productDetails.get("name").asText());
-        product.setDetails(productDetails.get("details").asText());
-        product.setPrice(productDetails.get("price").asDouble());
+        product.setName(productDTO.getName());
+        product.setDetails(productDTO.getDetails());
+        product.setPrice(productDTO.getPrice());
         List<Subcategory> p_subcategories =new ArrayList<>();
 
-           Category category = categoryRepo.getCategoryByNameIgnoreCase(productDetails.get("category").asText());
+           Category category = categoryRepo.getCategoryByNameIgnoreCase(productDTO.getCategory());
            List<Subcategory> c_subcategories;
            if (category == null) {
                category = new Category();
-               category.setName(productDetails.get("category").asText());
+               category.setName(productDTO.getCategory());
                c_subcategories = new ArrayList<>();
            }
            else
                c_subcategories = category.getSubcategories();
            List<Subcategory> forRollBack=new ArrayList<>();
            try{
-               int i = 0;
-               while (productDetails.get("subcategory").get(i) != null) {
-                   Subcategory subcategory = subcategoryRepo.getSubcategoryByName(productDetails.get("subcategory").get(i).asText());
+               List<String> s_name=productDTO.getSubcategories();
+               for(String name :s_name){
+                   Subcategory subcategory = subcategoryRepo.getSubcategoryByName(name);
                    if (subcategory != null && !c_subcategories.contains(subcategory))
                        throw new Exception(subcategory.getName()+" already mapped in different Category.");
                    else if(subcategory==null){
                        subcategory = new Subcategory();
-                       subcategory.setName(productDetails.get("subcategory").get(i).asText());
+                       subcategory.setName(name);
                        subcategoryRepo.save(subcategory);
                        forRollBack.add(subcategory);
                    }
-                   p_subcategories.add(subcategory);i++;
+                   p_subcategories.add(subcategory);
                }
            }catch (Exception e){
                subcategoryRepo.deleteAll(forRollBack);
@@ -77,21 +78,21 @@ public class ProductServices {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(product);
     }
 
-    public ResponseEntity<?> updateProduct(ObjectNode productDetails) {
-        Product product=productRepo.findProductByProductId(productDetails.get("productId").asInt());
+    public ResponseEntity<?> updateProduct(ProductDTO productDTO) {
+        Product product=productRepo.findProductByProductId(productDTO.getProductId());
 
         if(product==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't exist!!!");
 
-        product.setName(productDetails.get("name").asText());
-        product.setDetails(productDetails.get("details").asText());
-        product.setPrice(productDetails.get("price").asDouble());
+        product.setName(productDTO.getName());
+        product.setDetails(productDTO.getDetails());
+        product.setPrice(productDTO.getPrice());
 
         List<Subcategory> c_subcategories;
-        Category category = categoryRepo.getCategoryByNameIgnoreCase(productDetails.get("category").asText());
+        Category category = categoryRepo.getCategoryByNameIgnoreCase(productDTO.getCategory());
         if (category == null) {
             category = new Category();
-            category.setName(productDetails.get("category").asText());
+            category.setName(productDTO.getCategory());
             c_subcategories=new ArrayList<>();
         }
         else
@@ -102,22 +103,21 @@ public class ProductServices {
         List<Subcategory> p_subcategories=new ArrayList<>();
         List<Subcategory> forRollBack=new ArrayList<>();
         try {
-            int i = 0;
-            while (productDetails.get("subcategory").get(i) != null) {
-                Subcategory subcategory = subcategoryRepo.getSubcategoryByName(productDetails.get("subcategory").get(i).asText());
+            List<String> s_name=productDTO.getSubcategories();
+            for(String name :s_name){
+                Subcategory subcategory = subcategoryRepo.getSubcategoryByName(name);
                 if (subcategory != null && !c_subcategories.contains(subcategory)) {
                     throw new Exception(subcategory.getName() + " already mapped in different Category.");
                 }
                 else if(subcategory==null) {
                     subcategory = new Subcategory();
-                    subcategory.setName(productDetails.get("subcategory").get(i).asText());
+                    subcategory.setName(name);
                     subcategoryRepo.save(subcategory);
                     forRollBack.add(subcategory);
                 }
                 if(pastSubcategories.contains(subcategory))
                     pastSubcategories.remove(subcategory);
                 p_subcategories.add(subcategory);
-                i++;
             }
         }catch (Exception e){
             System.out.println(e);
@@ -134,7 +134,6 @@ public class ProductServices {
             if(productRepo.findProductsBySubcategoriesContains(subcategory).size()<2){
                 c_subcategories.remove(subcategory);
                 subcategoryRepo.delete(subcategory);
-
             }
         });
 

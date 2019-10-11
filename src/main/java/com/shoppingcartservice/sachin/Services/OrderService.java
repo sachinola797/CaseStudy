@@ -4,7 +4,7 @@ import com.shoppingcartservice.sachin.Entities.Cart.Cart;
 import com.shoppingcartservice.sachin.Entities.Cart.CartItem;
 import com.shoppingcartservice.sachin.Entities.Order.OrderItem;
 import com.shoppingcartservice.sachin.Entities.Order.Orders;
-import com.shoppingcartservice.sachin.Config.UserProfile;
+import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +23,6 @@ public class OrderService {
     @Autowired
     private UserProfileRepo userProfileRepo;
     @Autowired
-    private ProductRepo productRepo;
-    @Autowired
     private CartItemRepo cartItemRepo;
     @Autowired
     private CartRepo cartRepo;
@@ -33,8 +31,6 @@ public class OrderService {
 
     public ResponseEntity<?> createOrder(Integer userId) {
         UserProfile user = userProfileRepo.getUserProfileByUserID(userId);
-        if (user == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User doesn't Exist!!!");
 
         Cart cart = cartRepo.findCartByUserProfile(user);
         if (cart == null)
@@ -66,8 +62,7 @@ public class OrderService {
 
     public ResponseEntity<?> getOrders(Integer userId) {
         UserProfile user = userProfileRepo.getUserProfileByUserID(userId);
-        if (user == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User doesn't Exist!!!");
+
         List<Orders> orders=orderRepo.findOrderByUserProfileOrderByOrderIdDesc(user);
         if(orders.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You haven't ordered anything!!!");
