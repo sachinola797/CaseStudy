@@ -3,20 +3,13 @@ package com.shoppingcartservice.sachin.Services;
 
 import com.auth0.jwt.JWT;
 import com.shoppingcartservice.sachin.Config.JwtProperties;
-import com.shoppingcartservice.sachin.Config.UserPrincipal;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import com.shoppingcartservice.sachin.Entities.User.UserProfile;
-import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
-import com.shoppingcartservice.sachin.Reposistories.UserProfileRepo;
-import org.aspectj.weaver.patterns.IToken;
+import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.standard.PresentationDirection;
 import javax.servlet.http.HttpServletRequest;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;

@@ -1,7 +1,7 @@
 package com.shoppingcartservice.sachin.Config;
 
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
-import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
 import com.shoppingcartservice.sachin.Services.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

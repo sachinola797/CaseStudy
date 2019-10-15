@@ -1,18 +1,15 @@
 package com.shoppingcartservice.sachin.Services;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.shoppingcartservice.sachin.Config.JwtTokenUtil;
 import com.shoppingcartservice.sachin.DTOs.UserProfileDTO;
 import com.shoppingcartservice.sachin.Entities.User.Address;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import com.shoppingcartservice.sachin.Entities.User.UserProfile;
-import com.shoppingcartservice.sachin.Reposistories.AddressRepo;
-import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
-import com.shoppingcartservice.sachin.Reposistories.UserProfileRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.AddressRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

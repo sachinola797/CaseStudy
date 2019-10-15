@@ -1,4 +1,4 @@
-package com.shoppingcartservice.sachin.Reposistories;
+package com.shoppingcartservice.sachin.Reposistories.Cart;
 
 import com.shoppingcartservice.sachin.Entities.Cart.Cart;
 import com.shoppingcartservice.sachin.Entities.User.UserProfile;

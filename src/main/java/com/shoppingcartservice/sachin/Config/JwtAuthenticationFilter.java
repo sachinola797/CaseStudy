@@ -2,13 +2,13 @@ package com.shoppingcartservice.sachin.Config;
 
 import com.auth0.jwt.JWT;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
-import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.*;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,7 +22,8 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
-
+    private AuthenticationSuccessHandler successHandler = new LoginSuccessHandlerImpl();
+    private AuthenticationFailureHandler failureHandler = new LoginFailureHandlerImpl();
     private UserCredentialsRepo userCredentialsRepo;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserCredentialsRepo userCredentialsRepo) {
@@ -62,5 +63,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         userCredentialsRepo.save(user);
         // Add token in response
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
+        successHandler.onAuthenticationSuccess(request, response, authResult);
+        //chain.doFilter(request,response);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+//        super.unsuccessfulAuthentication(request, response, failed);
+        SecurityContextHolder.clearContext();
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Authentication request failed: " + failed.toString(), failed);
+            logger.debug("Updated SecurityContextHolder to contain null Authentication");
+            logger.debug("Delegating to authentication failure handler " + failureHandler);
+        }
+
+        failureHandler.onAuthenticationFailure(request, response, failed);
     }
 }

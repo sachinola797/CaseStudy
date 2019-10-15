@@ -1,6 +1,6 @@
 package com.shoppingcartservice.sachin.Config;
 
-import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
 import com.shoppingcartservice.sachin.Services.UserPrincipalDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,10 +23,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserCredentialsRepo userCredentialsRepo;
 
     @Autowired
-    LoginSuccessHandlerImpl loginSuccessHandler;
-    @Autowired
-    LoginFailureHandlerImpl loginFailureHandler;
-    @Autowired
     LogoutHandlerImpl logoutHandler;
 
     @Override
@@ -46,14 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // configure access rules
                 .antMatchers("/updateProfile","/getProfile/*").hasRole("USER")
                 .antMatchers("/products/addProduct","/products/updateProduct").hasRole("ADMIN")
-                .antMatchers("/products/*").permitAll()
-                .antMatchers("/cart/**").hasRole("USER")
+                .antMatchers("/cart/**","/order/**").hasRole("USER")
+                .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/login")
-                .successHandler(loginSuccessHandler)
-                .failureHandler(loginFailureHandler)
                 .permitAll()
                 .and()
                 .logout()

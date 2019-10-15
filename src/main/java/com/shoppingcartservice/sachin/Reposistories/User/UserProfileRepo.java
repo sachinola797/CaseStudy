@@ -1,4 +1,4 @@
-package com.shoppingcartservice.sachin.Reposistories;
+package com.shoppingcartservice.sachin.Reposistories.User;
 
 import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;

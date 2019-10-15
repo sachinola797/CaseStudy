@@ -5,7 +5,11 @@ import com.shoppingcartservice.sachin.Entities.Cart.CartItem;
 import com.shoppingcartservice.sachin.Entities.Order.OrderItem;
 import com.shoppingcartservice.sachin.Entities.Order.Orders;
 import com.shoppingcartservice.sachin.Entities.User.UserProfile;
-import com.shoppingcartservice.sachin.Reposistories.*;
+import com.shoppingcartservice.sachin.Reposistories.Cart.CartItemRepo;
+import com.shoppingcartservice.sachin.Reposistories.Cart.CartRepo;
+import com.shoppingcartservice.sachin.Reposistories.Order.OrderItemRepo;
+import com.shoppingcartservice.sachin.Reposistories.Order.OrderRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +71,6 @@ public class OrderService {
         if(orders.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You haven't ordered anything!!!");
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(orders);
+        return ResponseEntity.ok().body(orders);
     }
 }

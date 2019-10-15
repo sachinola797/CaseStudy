@@ -49,4 +49,9 @@ public class ProductController {
     public ResponseEntity<?> getProductBySearchString(@PathVariable("searchString") String searchString) {
         return productServices.getProductBySearchString(searchString);
     }
+    @CrossOrigin()
+    @GetMapping("/allCategories")
+    public ResponseEntity<?> getAllCategories() {
+        return productServices.getAllCategories();
+    }
 }

@@ -6,10 +6,12 @@ import com.shoppingcartservice.sachin.DTOs.ProductDTO;
 import com.shoppingcartservice.sachin.Entities.Product.Product;
 import com.shoppingcartservice.sachin.Entities.Product.Category;
 import com.shoppingcartservice.sachin.Entities.Product.Subcategory;
-import com.shoppingcartservice.sachin.Reposistories.*;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.shoppingcartservice.sachin.Reposistories.Product.CategoryRepo;
+import com.shoppingcartservice.sachin.Reposistories.Product.ProductRepo;
+import com.shoppingcartservice.sachin.Reposistories.Product.SubcategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -175,6 +177,11 @@ public class ProductServices {
     public ResponseEntity<?> getProductBySearchString(String searchString) {
 
         return ResponseEntity.ok(productRepo.find(searchString.toLowerCase()));
+    }
+
+    public ResponseEntity<?> getAllCategories() {
+
+        return ResponseEntity.ok(categoryRepo.findAll(new Sort(Sort.Direction.ASC, "name")));
     }
 
 //    public ResponseEntity<?> getFilteredProductByCategory(String category,ObjectNode filters){

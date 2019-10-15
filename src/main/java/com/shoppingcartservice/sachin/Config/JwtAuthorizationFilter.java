@@ -1,8 +1,9 @@
 package com.shoppingcartservice.sachin.Config;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
-import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -39,7 +40,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         // If header is present, try grab user principal from database and perform authorization
         Authentication authentication = getUsernamePasswordAuthentication(request);
-
+        //self
+        if(authentication==null){
+            chain.doFilter(request, response);
+            return;
+        }
+        //
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // Continue filter execution
         chain.doFilter(request, response);
@@ -51,11 +57,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         if (header != null){
             String token=header.replace(JwtProperties.TOKEN_PREFIX,"");
             // parse the token and validate it
-            String email = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
-                    .build()
-                    .verify(token)
-                    .getSubject();
-
+            String email;
+            try {
+                 email = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
+                        .build()
+                        .verify(token)
+                        .getSubject();
+            }catch (TokenExpiredException e){
+                e.getStackTrace();
+                return null;
+            }
             // Search in the DB if we find the user by token subject (username)
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (email != null) {

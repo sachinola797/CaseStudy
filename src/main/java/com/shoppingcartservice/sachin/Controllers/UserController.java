@@ -1,11 +1,6 @@
 package com.shoppingcartservice.sachin.Controllers;
 
-import com.shoppingcartservice.sachin.Config.JwtTokenUtil;
 import com.shoppingcartservice.sachin.DTOs.UserProfileDTO;
-import com.shoppingcartservice.sachin.Reposistories.AddressRepo;
-import com.shoppingcartservice.sachin.Reposistories.UserCredentialsRepo;
-import com.shoppingcartservice.sachin.Reposistories.UserProfileRepo;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import com.shoppingcartservice.sachin.Services.JwtHelper;
 import com.shoppingcartservice.sachin.Services.UserService;
