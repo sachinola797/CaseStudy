@@ -52,7 +52,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(password));
         user.setUserProfile(userProfile);
         userCredentialsRepo.save(user);
-        return ResponseEntity.ok("Success ");
+        return ResponseEntity.ok("{\"result\": \"success\"}");
 
     }
 
@@ -60,7 +60,6 @@ public class UserService {
         UserProfile userProfile=userProfileRepo.getUserProfileByUserID(userProfileDTO.getUserID());
 
         userProfile.setName(userProfileDTO.getName());
-        userProfile.setEmail(userProfileDTO.getEmail());
         userProfile.setPhone(userProfileDTO.getPhone());
         Address address=userProfileDTO.getAddress();
         addressRepo.save(address);

@@ -61,7 +61,7 @@ public class OrderService {
         order.setUserProfile(user);
         orderRepo.save(order);
         cartRepo.delete(cart);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(order);
+        return ResponseEntity.ok().body(order);
     }
 
     public ResponseEntity<?> getOrders(Integer userId) {

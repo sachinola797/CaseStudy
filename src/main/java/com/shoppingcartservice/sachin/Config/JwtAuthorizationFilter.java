@@ -42,6 +42,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         Authentication authentication = getUsernamePasswordAuthentication(request);
         //self
         if(authentication==null){
+            response.addHeader("tokenValidity","expired");
             chain.doFilter(request, response);
             return;
         }

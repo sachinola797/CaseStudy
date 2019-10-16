@@ -3,13 +3,13 @@ function select_option(category) {
     select.innerHTML+="<option name='category' value=''"+category+"'>"+category+"</option>";
 }
 
-function isAuthenticated(){
-    const token=localStorage.getItem("Authentication");
-    if(token==null)
-        document.getElementById("myAccount").style.display="none";
-    else
-        document.getElementById("myAccount").style.display="block";
-}
+// function isAuthenticated(){
+//     const token=localStorage.getItem("Authentication");
+//     if(token==null)
+//         document.getElementById("myAccount").style.display="none";
+//     else
+//         document.getElementById("myAccount").style.display="block";
+// }
 
 function isAuthenticated2(elment){
     const token=localStorage.getItem("Authentication");
@@ -28,7 +28,6 @@ function d(element){
 async function uploadData() {
     let response= await fetch("http://localhost:8080/products/allCategories",{method:"GET",});
     const body=await response.json();
-    isAuthenticated();
     for (let i=0;i<body.length;i++)
     {
         select_option(body[i].name);

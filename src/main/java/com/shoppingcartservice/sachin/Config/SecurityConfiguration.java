@@ -40,9 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userCredentialsRepo))
                 .authorizeRequests()
                 // configure access rules
-                .antMatchers("/updateProfile","/getProfile/*").hasRole("USER")
+                .antMatchers("/updateProfile","/getProfile/**","/cart/**","/order/**").hasRole("USER")
                 .antMatchers("/products/addProduct","/products/updateProduct").hasRole("ADMIN")
-                .antMatchers("/cart/**","/order/**").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()

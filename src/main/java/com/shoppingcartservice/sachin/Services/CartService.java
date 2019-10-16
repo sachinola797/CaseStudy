@@ -36,7 +36,7 @@ public class CartService {
             cartRepo.save(cart);
         }
         if(cart.getCartItems()==null)
-            return ResponseEntity.ok("Your Cart is Empty!!!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your Cart is Empty!!!");
 
         return ResponseEntity.ok(cart);
     }

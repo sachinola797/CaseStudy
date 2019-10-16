@@ -63,6 +63,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         userCredentialsRepo.save(user);
         // Add token in response
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
+        response.addHeader("userId",user.getUserProfile().getUserID()+"");
+        response.addHeader("role",user.getRoles());
         successHandler.onAuthenticationSuccess(request, response, authResult);
         //chain.doFilter(request,response);
     }

@@ -21,10 +21,6 @@ public class UserController {
     @Autowired
     private JwtHelper jwtHelper;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(UserCredentials user) {
-//        return userService.login(user);
-//    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@FormParam("name") String name,@FormParam("email") String email,@FormParam("password") String password) {
@@ -54,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/updateProfile")
-    public ResponseEntity<?> updateProfile(UserProfileDTO userProfileDTO,HttpServletRequest request){
+    public ResponseEntity<?> updateProfile(@RequestBody UserProfileDTO userProfileDTO,HttpServletRequest request){
         if(userProfileDTO.isNullEntriesPresent())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more fields are empty.");
         if(!jwtHelper.getUserIdAuthenticated(userProfileDTO.getUserID(),request))

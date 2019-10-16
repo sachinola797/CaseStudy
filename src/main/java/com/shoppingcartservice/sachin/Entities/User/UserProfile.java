@@ -12,7 +12,7 @@ public class UserProfile {
     private String name;
     private String email;
     @Column(nullable = true)
-    private int phone;
+    private long phone;
     @OneToOne
     @JoinColumn(name = "addressID")
     private Address address;
@@ -33,11 +33,11 @@ public class UserProfile {
         this.email = email;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 
