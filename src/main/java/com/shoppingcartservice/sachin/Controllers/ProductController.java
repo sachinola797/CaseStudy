@@ -16,16 +16,16 @@ public class ProductController {
     private ProductServices productServices;
 
     @PostMapping("/addProduct")
-    public ResponseEntity<?> addProduct(ProductDTO productDTO) {
+    public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO) {
         int verify=productDTO.isNullEntriesPresent();
-        if(verify==1)
+        if(verify ==1)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more fields are empty...");
 
         return productServices.addProduct(productDTO);
     }
 
     @PostMapping("/updateProduct")
-    public ResponseEntity<?> updateProduct( ProductDTO productDTO) {
+    public ResponseEntity<?> updateProduct(@RequestBody ProductDTO productDTO) {
         int verify=productDTO.isNullEntriesPresent();
         if(verify==1)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more fields are empty...");
@@ -36,11 +36,12 @@ public class ProductController {
 
     @GetMapping("/getById/{productId}")
     public ResponseEntity<?> getProductById(@PathVariable("productId") Integer productId) {
+
         return productServices.getProductById(productId);
     }
 
 
-    @GetMapping("/{category}")
+    @GetMapping("/getByCategory/{category}")
     public ResponseEntity<?> getProductByCategory(@PathVariable("category") String category) {
         return productServices.getProductByCategory(category);
     }
@@ -49,6 +50,7 @@ public class ProductController {
     public ResponseEntity<?> getProductBySearchString(@PathVariable("searchString") String searchString) {
         return productServices.getProductBySearchString(searchString);
     }
+
     @CrossOrigin()
     @GetMapping("/allCategories")
     public ResponseEntity<?> getAllCategories() {

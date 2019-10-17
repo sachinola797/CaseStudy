@@ -1,7 +1,7 @@
 const token = localStorage.getItem("Authorization");
 const userId = localStorage.getItem("userId");
 const role = localStorage.getItem("role");
-if (role == null || token == null || role === "ADMIN" || userId == null)
+if (role == null || token == null || role !== "USER" || userId == null)
     window.location = "loginPage.html";
 
 let req;
@@ -13,8 +13,10 @@ function getOrderList() {
 
 let setOrder = function() {
     req = this;
-    if (this.status === 401 || this.getResponseHeader("tokenValidity") === "expired")
+    if (this.status === 401 || this.getResponseHeader("tokenValidity") === "expired"){
+        localStorage.clear();
         window.location = "loginPage.html";
+    }
     if (this.status === 400) {
         document.getElementById("Orders").innerHTML += "<div class='alert alert-danger'><strong>" + this.responseText + "</strong><br></div>";
     }

@@ -7,8 +7,9 @@ import java.util.List;
 
 @Entity
 public class UserCredentials {
-
-    @Id
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long userId;
+    @Column(unique =true)
     private String email;
     private String password;
 
@@ -17,7 +18,7 @@ public class UserCredentials {
     private String roles = "";
 
     @OneToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "userProfileID")
     private UserProfile userProfile;
 
     private String token;
@@ -28,6 +29,14 @@ public class UserCredentials {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getToken() {

@@ -4,18 +4,27 @@ import com.shoppingcartservice.sachin.Entities.User.Address;
 
 public class UserProfileDTO {
     private int userID;
+    private String email;
     private String name;
     private long phone;
     private Address address;
 
     public boolean isNullEntriesPresent(){
-        if(getUserID()==0 ||this.name==null || getName().isEmpty() || getPhone()==0 || getAddress()==null)
+        if(getUserID()==0 ||this.name==null ||this.email==null || getName().isEmpty() || getEmail().isEmpty()|| getPhone()==0 || getAddress()==null)
             return true;
         if(getAddress()!=null){
             if(getAddress().getCity()==null || getAddress().getState()==null || getAddress().getStreet()==null ||getAddress().getCity().isEmpty()||getAddress().getState().isEmpty()||getAddress().getStreet().isEmpty() ||getAddress().getPincode()==0)
                 return true;
         }
         return false;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getUserID() {

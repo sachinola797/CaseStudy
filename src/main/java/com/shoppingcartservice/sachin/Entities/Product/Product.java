@@ -10,6 +10,7 @@ public class Product {
     private String name;
     private double price;
     private String details;
+    private String category;
 
     @ManyToMany
     private List<Subcategory> subcategories;
@@ -56,5 +57,11 @@ public class Product {
         this.subcategories = subcategories;
     }
 
+    public String getCategory() {
+        return category;
+    }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

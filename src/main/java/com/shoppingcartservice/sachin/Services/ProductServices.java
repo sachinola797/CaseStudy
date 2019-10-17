@@ -53,7 +53,7 @@ public class ProductServices {
                for(String name :s_name){
                    Subcategory subcategory = subcategoryRepo.getSubcategoryByName(name);
                    if (subcategory != null && !c_subcategories.contains(subcategory))
-                       throw new Exception(subcategory.getName()+" already mapped in different Category.");
+                       throw new Exception("Subcategory \""+subcategory.getName() + "\" has been already mapped in different Category.");
                    else if(subcategory==null){
                        subcategory = new Subcategory();
                        subcategory.setName(name);
@@ -65,7 +65,7 @@ public class ProductServices {
            }catch (Exception e){
                subcategoryRepo.deleteAll(forRollBack);
                System.out.println(e);
-               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more Subcategories are assigned to another Category");
+               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString().substring(20));
            }
 
             p_subcategories.forEach(newSubcategory ->{
@@ -74,10 +74,11 @@ public class ProductServices {
             });
            category.setSubcategories(c_subcategories);
            categoryRepo.save(category);
+           product.setCategory(category.getName());
            product.setSubcategories(p_subcategories);
            productRepo.save(product);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(product);
+        return ResponseEntity.ok().body(product);
     }
 
     public ResponseEntity<?> updateProduct(ProductDTO productDTO) {
@@ -109,7 +110,7 @@ public class ProductServices {
             for(String name :s_name){
                 Subcategory subcategory = subcategoryRepo.getSubcategoryByName(name);
                 if (subcategory != null && !c_subcategories.contains(subcategory)) {
-                    throw new Exception(subcategory.getName() + " already mapped in different Category.");
+                    throw new Exception("Subcategory \""+subcategory.getName() + "\" has been already mapped in different Category.");
                 }
                 else if(subcategory==null) {
                     subcategory = new Subcategory();
@@ -124,7 +125,7 @@ public class ProductServices {
         }catch (Exception e){
             System.out.println(e);
             subcategoryRepo.deleteAll(forRollBack);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more Subcategories are assigned to another Category");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString().substring(20));
         }
 
         p_subcategories.forEach(newSubcategory ->{
@@ -140,21 +141,21 @@ public class ProductServices {
         });
 
         product.setSubcategories(p_subcategories);
+        product.setCategory(category.getName());
         productRepo.save(product);
 
         category.setSubcategories(c_subcategories);
         categoryRepo.save(category);
 
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(product);
+        return ResponseEntity.ok().body(product);
     }
 
     public ResponseEntity<?> getProductById(Integer productId) {
         Product product=productRepo.findProductByProductId(productId);
         if(product==null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't exists by the product id!!!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't exists by this product id!!!");
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(product);
+        return ResponseEntity.ok(product);
     }
 
     public ResponseEntity<?> getProductByCategory(String category) {
@@ -171,7 +172,7 @@ public class ProductServices {
         if(products==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No product is assigned to this category!!!");
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(products);
+        return ResponseEntity.ok().body(products);
     }
 
     public ResponseEntity<?> getProductBySearchString(String searchString) {

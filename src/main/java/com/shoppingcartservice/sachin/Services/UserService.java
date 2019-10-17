@@ -57,8 +57,19 @@ public class UserService {
     }
 
     public ResponseEntity<?> updateProfile(UserProfileDTO userProfileDTO){
-        UserProfile userProfile=userProfileRepo.getUserProfileByUserID(userProfileDTO.getUserID());
+        int userId=userProfileDTO.getUserID();
+        String email=userProfileDTO.getEmail();
+        UserCredentials userCredentials=userCredentialsRepo.findByUserId(userId);
+        UserCredentials verifyEmail=userCredentialsRepo.findByEmail(email);
+        if(verifyEmail!=null){
+            if(verifyEmail.getUserId()!=userId)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email Id is already taken");
+        }
+        userCredentials.setEmail(email);
+        userCredentialsRepo.save(userCredentials);
 
+        UserProfile userProfile=userProfileRepo.getUserProfileByUserID(userId);
+        userProfile.setEmail(email);
         userProfile.setName(userProfileDTO.getName());
         userProfile.setPhone(userProfileDTO.getPhone());
         Address address=userProfileDTO.getAddress();

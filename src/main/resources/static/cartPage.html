@@ -20,6 +20,15 @@
     </style>
     <script src="scripts/basic.js" type="text/javascript"></script>
     <script src="scripts/cart.js" type="text/javascript"></script>
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body onload="getCartList()">
@@ -46,14 +55,13 @@
                 </div>
                 <div class="m-2">₹ </div>
                 <div class="m-2 form-group">
-                    <form class="form-inline" onsubmit="return updateProduct(this,event)">
+                    <form class="form-inline" onkeyup="updateProduct(this)">
                         <span class="d-none">Product Id</span>
-                        <input type="number" min="0" value="1" class="form-control col-2 m-2">
-                        <button type="submit" class="btn btn-warning">Update</button>
+                        <input type="number" min="0" value="1" class="form-control col-2 m-2 quantity">
+                        <button type="button" onclick="return removeItem(this)" class="btn btn-danger">Remove
+                            <span class="d-none">Product Id</span>
+                        </button>
                     </form>
-                    <button type="button" onclick="return removeItem(this)" class="btn btn-danger">Remove
-                        <span class="d-none">Product Id</span>
-                    </button>
                 </div>
                 <div class="m-2">₹ </div>
             </div>
