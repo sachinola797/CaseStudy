@@ -1,5 +1,6 @@
 package com.shoppingcartservice.sachin.Config;
 
+import com.shoppingcartservice.sachin.DTOs.ProductDTO;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
@@ -8,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class DbInit implements CommandLineRunner {
@@ -21,22 +26,16 @@ public class DbInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Delete all
-       // this.userCredentialsRepo.deleteAll();
-
-        // Crete users
-//        UserCredentials dan = new UserCredentials("dan",passwordEncoder.encode("dan123"),"USER");
-//        UserCredentials admin = new UserCredentials("admin",passwordEncoder.encode("admin123"),"ADMIN");
-//        UserCredentials manager = new UserCredentials("manager",passwordEncoder.encode("manager123"),"MANAGER");
-//
-//        List<UserCredentials> users = Arrays.asList(dan,admin,manager);
-//        UserCredentials userCredentials=userCredentialsRepo.findByUserId(3);
-//        UserProfile admin= new UserProfile();
-//        admin.setName("admin");
-//        userProfileRepo.save(admin);
-//        userCredentials.setUserProfile(admin);
-//        userCredentialsRepo.save(userCredentials);
-//        // Save to db
-//        this.userCredentialsRepo.save(admin);
+        UserCredentials adminCreds=userCredentialsRepo.findByEmail("admin@gmail.com");
+        if(adminCreds==null){
+            UserProfile admin=new UserProfile("admin","admin@gmail.com");
+            userProfileRepo.save(admin);
+            adminCreds=new UserCredentials();
+            adminCreds.setUserProfile(admin);
+            adminCreds.setEmail("admin@gmail.com");
+            adminCreds.setPassword(passwordEncoder.encode("admin123"));
+            adminCreds.setRoles("ADMIN");
+            userCredentialsRepo.save(adminCreds);
+        }
     }
 }

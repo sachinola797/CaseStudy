@@ -25,6 +25,7 @@ public class LogoutHandlerImpl implements LogoutHandler {
         userCredentialsRepo.save(user);
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         httpServletResponse.setHeader("Content-Type","application/json");
+        httpServletResponse.setHeader("ABC","asfasf");
         try {
             httpServletResponse.getWriter().write("{\"result\":\"success\"}");
         } catch (IOException e) {

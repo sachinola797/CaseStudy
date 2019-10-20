@@ -3,6 +3,9 @@ package com.shoppingcartservice.sachin;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Java program to encode and decode String in Java using Base64 encoding algorithm
@@ -11,19 +14,13 @@ import java.io.IOException;
 public class test{
 
     public static void main(String args[]) throws IOException {
-        String orig = "original String before base64 encoding in Java";
-
-        //encoding  byte array into base 64
-        byte[] encoded = Base64.encodeBase64(orig.getBytes());
-
-        System.out.println("Original String: " + orig );
-        System.out.println("Base64 Encoded String : " + new String(encoded));
-
-        //decoding byte array into base64
-        byte[] decoded = Base64.decodeBase64(encoded);
-        System.out.println("Base 64 Decoded  String : " + new String(decoded));
-
+//        String a="fsd fds  dsf ";
+//        String b=capitalise(a);
+//        System.out.println(b);
     }
+
+
+
 }
 
 

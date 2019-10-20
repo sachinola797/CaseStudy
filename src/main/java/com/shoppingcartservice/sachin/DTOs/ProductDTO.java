@@ -21,6 +21,15 @@ public class ProductDTO {
         return 0;
     }
 
+    public ProductDTO(String name, double price, String details, String category, List<String> subcategories) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.details = details;
+        this.category = category;
+        this.subcategories = subcategories;
+    }
+
     public int getProductId() {
         return productId;
     }

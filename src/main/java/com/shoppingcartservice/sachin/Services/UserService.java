@@ -25,18 +25,6 @@ public class UserService {
     private AddressRepo addressRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
-//    public ResponseEntity<?> login(UserCredentials user) {
-//        UserCredentials currentUser=userCredentialsRepo.findByEmail(user.getEmail());
-//        if(currentUser==null)
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User doesn't exist!!!");
-//        else if(BCrypt.checkpw(user.getPassword(),currentUser.getPassword())){
-//            final String token = jwtTokenUtil.generateToken(currentUser);
-//            currentUser.setToken(token);
-//            userCredentialsRepo.save(currentUser);
-//            return ResponseEntity.ok("Success "+token);
-//        }
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect password!!!");
-//    }
 
     public ResponseEntity<?> signup(String name,String email,String password) {
         if(userCredentialsRepo.findByEmail(email)!=null)
@@ -44,7 +32,7 @@ public class UserService {
 
         UserCredentials user=new UserCredentials();
         UserProfile userProfile=new UserProfile();
-        userProfile.setName(name);
+        userProfile.setName(capitalise(name));
         userProfile.setEmail(email);
         userProfileRepo.save(userProfile);
 
@@ -83,6 +71,18 @@ public class UserService {
     public ResponseEntity<?> getProfile(Integer userId){
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         return ResponseEntity.ok(user);
+    }
+
+    public  String capitalise(String s){
+        String[] list=s.split(" ");
+        StringBuilder finalString= new StringBuilder();
+        for(String a:list) {
+            if(a.length()>1)
+                finalString.append(" "+a.substring(0, 1).toUpperCase()+a.substring(1).toLowerCase());
+            else if(a.length()>0)
+                finalString.append(" "+a.substring(0, 1).toUpperCase());
+        }
+        return  finalString.substring(1);
     }
 
 }

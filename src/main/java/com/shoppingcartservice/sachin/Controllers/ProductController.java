@@ -1,5 +1,6 @@
 package com.shoppingcartservice.sachin.Controllers;
 
+import com.shoppingcartservice.sachin.DTOs.FilterRequestDTO;
 import com.shoppingcartservice.sachin.DTOs.ProductDTO;
 import com.shoppingcartservice.sachin.Services.ProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,23 @@ public class ProductController {
         return productServices.getProductBySearchString(searchString);
     }
 
-    @CrossOrigin()
+    @PostMapping("{category}/getFilteredProducts")
+    public ResponseEntity<?> getFilteredProducts(@PathVariable("category") String category, @RequestBody FilterRequestDTO filterRequestDTO){
+        if(filterRequestDTO.validatePriceFilters())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please enter valid price...");
+
+        filterRequestDTO.setCategory(category);
+        return productServices.getFilteredProducts(filterRequestDTO);
+    }
+
     @GetMapping("/allCategories")
     public ResponseEntity<?> getAllCategories() {
         return productServices.getAllCategories();
     }
+
+    @GetMapping("/allProducts")
+    public ResponseEntity<?> getAllProducts() {
+        return productServices.getAllProducts();
+    }
+
 }

@@ -17,6 +17,13 @@ public class UserProfile {
     @JoinColumn(name = "addressID")
     private Address address;
 
+    public UserProfile() {}
+
+    public UserProfile(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public String getName() {
         return name;
     }
