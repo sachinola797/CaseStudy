@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" color="red">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            font-family: Lato, Helvetica, sans-serif;
+        }
+    </style>
+    <script src="scripts/basic.js" type="text/javascript"></script>
+    <script src="scripts/admin.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+
+<body class="bg-secondary" onload="navbar()">
+    <!-------------------------------------------Navbar starts-------------------------------------------------------------->
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><img src="images/logo.png" style="width: 40px" alt="site-logo"> Shopping Delight</a>
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb1,#navb2" aria-expanded="false">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="navbar-collapse collapse mx-auto" id="navb1">
+            <ul class="navbar-nav text-center mr-auto">
+                <li class="nav-item d-none" id="navbar-addProduct" onclick="callingAddProductPage()">
+                    <a class="nav-link">Add Product</a>
+                </li>
+                <li class="nav-item d-none" id="navbar-modifyProduct" onclick="callingModifyProductPage()">
+                    <a class="nav-link">Modify Product</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse ml-auto" id="navb2">
+            <ul class="navbar-nav text-center ml-auto">
+                <li id="myAccount" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light d-none" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
+                    <div class="dropdown-menu dropdown-info" aria-labelledby="userName">
+                        <a class="dropdown-item waves-effect waves-light" href="/userProfilePage">My Profile</a>
+                        <a class="dropdown-item waves-effect waves-light" href="/cartPage">My Cart</a>
+                        <a class="dropdown-item waves-effect waves-light" href="/orderPage">My Orders</a>
+                        <a class="dropdown-item waves-effect waves-light" onclick="logout()">Logout</a>
+                    </div>
+                </li>
+                <li id="myCart" class="nav-item rounded-lg mx-2 d-none">
+                    <a class="nav-link text-light" href="/cartPage"><i class="fa fa-shopping-cart"> </i>  Cart</a>
+                </li>
+                <li id="login-button" class="nav-item bg-info rounded-lg mx-2">
+                    <a class="nav-link text-light" href="/loginPage">Login/SignUp</a>
+                </li>
+                <li id="logout-button" class="nav-item bg-danger rounded-lg mx-2 d-none">
+                    <a class="nav-link text-light" onclick="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-------------------------------------------Navbar ends-------------------------------------------------------------->
+
+    <div class="d-flex justify-content-center">
+        <div id="Cart" class="flex-flow justify-content-center col-6 m-4 p-3 bg-light rounded-lg text-center">
+            <h3>Let's Add a new Product !!!</h3>
+            <div class="my-2 mx-auto p-2 bg-light rounded-lg" style="width: 380px">
+                <form onsubmit="return submitProduct(event)" name="addProductForm">
+                    <div id="modifyProduct-error" class="alert alert-danger fade in collapse hide">
+                        <button type="button" class="close" data-toggle="collapse" data-target="#addProduct-error" aria-expanded="false" aria-controls="addProduct-error">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                        <strong>Message</strong>
+                    </div>
+                    <div class="form-inline">
+                        <label for="productId" class="mr-sm-2">Product Id: </label>
+                        <input id="productId" type="text" class="form-control  my-3 p-1" placeholder="Product Id..." name="name" onkeyup="setModifyForm(this.value)" required>
+                    </div>
+                    <div class="form-inline">
+                        <label for="name" class="mr-sm-2">Product Name: </label>
+                        <input id="name" type="text" class="form-control  my-3 p-1" placeholder="Product Name..." name="name" required>
+                    </div>
+                    <div class="form-inline">
+                        <label for="price" class="mr-sm-2">Product Price: </label>
+                        <input id="price" type="number" step="0.01" class="form-control  my-3 p-1" placeholder="Product Price..." name="name" required>
+                    </div>
+                    <div class="form-inline">
+                        <label for="details" class="mr-sm-2">Product Details: </label>
+                        <input id="details" type="text" class="form-control  my-3 p-1" placeholder="Product Details..." name="name" required>
+                    </div>
+                    <div class="form-inline">
+                        <label for="category" class="mr-sm-2">Product Category: </label>
+                        <input id="category" type="text" class="form-control  my-3 p-1" placeholder="Product Category..." name="name" required>
+                    </div>
+                    <div class="form-inline">
+                        <label for="subcategories" class="mr-sm-2">Product Subcategories: </label>
+                        <input id="subcategories" type="text" class="form-control  mt-3 mb-1 p-1" placeholder="Product Subcategories..." name="name" required>
+                    </div>
+                    <div class="text-danger mb-3">(Note:- Please provide " , " after every subcategory)*</div>
+                    <button type="submit" class="form-control btn btn-info">Add Product</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

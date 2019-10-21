@@ -1,0 +1,12 @@
+body{
+    background-image: url("../images/bgPattern.png");
+    background-repeat: repeat;
+}
+
+#cat_choice.form-control{
+    border-radius: 5px 0 0 5px;
+}
+
+#searchString.form-control{
+    border-radius: 0 5px 5px 0;
+}
