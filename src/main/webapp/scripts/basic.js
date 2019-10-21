@@ -9,6 +9,7 @@ function navbar() {
         document.getElementById("navbar-modifyProduct").classList.remove("d-none");
         document.getElementById("login-button").classList.add("d-none");
         document.getElementById("logout-button").classList.remove("d-none");
+        document.getElementById("customerSupport-button").classList.remove("d-none");
     }
     if (role === "USER") {
         document.getElementById("login-button").classList.add("d-none");

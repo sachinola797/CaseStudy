@@ -1,6 +1,5 @@
 package com.shoppingcartservice.sachin.Controllers;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.shoppingcartservice.sachin.Services.CartService;
 import com.shoppingcartservice.sachin.Services.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 
@@ -60,7 +58,7 @@ public class CartController {
     }
 
     @PostMapping("/changeQuantity/{cartItemId}")
-   public ResponseEntity<?> changeQuantity2(@PathVariable("cartItemId") Integer cartItemId,@FormParam("quantity") Integer quantity,HttpServletRequest request) {
+    public ResponseEntity<?> changeQuantity2(@PathVariable("cartItemId") Integer cartItemId,@FormParam("quantity") Integer quantity,HttpServletRequest request) {
         if(quantity==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please insert quantity...");
         return cartService.changeQuantity2(jwtHelper.getCurrentUserId(request),cartItemId,quantity);

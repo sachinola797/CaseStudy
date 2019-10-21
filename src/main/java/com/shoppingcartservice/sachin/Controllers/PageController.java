@@ -20,6 +20,9 @@ public class PageController {
     @GetMapping("/modifyProductPage")
     public String modifyProduct(){ return "productPage.html";}
 
+    @GetMapping("/customerSupportPage")
+    public String customerSupportPage(){ return "customerSupportPage.html";}
+
     @GetMapping("/userProfilePage")
     public String userProfilePage(){ return "userProfilePage.html";}
 

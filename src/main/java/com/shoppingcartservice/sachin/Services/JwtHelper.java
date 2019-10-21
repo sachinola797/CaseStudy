@@ -39,6 +39,8 @@ public class JwtHelper {
 
         String email=getEmailFromJwt(request);
         UserCredentials userCredentials=userCredentialsRepo.findByEmail(email);
+        if(userCredentials.getRoles().equals("ADMIN"))
+            return true;
         UserProfile user=userCredentials.getUserProfile();
         if(user!=null){
             if(user.getUserID()==userId)
@@ -46,6 +48,7 @@ public class JwtHelper {
         }
         return false;
     }
+
 
     public Integer getCurrentUserId(HttpServletRequest request){
         String email=getEmailFromJwt(request);

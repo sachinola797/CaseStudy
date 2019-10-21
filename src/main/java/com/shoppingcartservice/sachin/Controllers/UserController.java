@@ -30,23 +30,17 @@ public class UserController {
         return userService.signup(name,email,password);
     }
 
-//    @PostMapping("/logout")
-//    public ResponseEntity<?> logout(UserCredentials user) {
-//        UserCredentials currentUser=userCredentialsRepo.findByUserID(user.getUserID());
-//        if(currentUser==null)
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User doesn't exist!!!");
-//        else if(!jwtTokenUtil.validateToken(currentUser.getToken(),currentUser))
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User's Session Expired!!!");
-//        else {
-//            return ResponseEntity.ok("User Successfully logged out!!!");
-//        }
-//    }
 
     @GetMapping("/getProfile/{userID}")
     public ResponseEntity<?> getProfile(@PathVariable("userID") Integer userID,HttpServletRequest request){
         if(!jwtHelper.getUserIdAuthenticated(userID,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your are not allowed to see this profile...");
         return userService.getProfile(userID);
+    }
+
+    @GetMapping("/getProfileByPhone/{phone}")
+    public ResponseEntity<?> getProfileByPhone(@PathVariable("phone") long phone){
+        return userService.getProfileByPhone(phone);
     }
 
     @PostMapping("/updateProfile")
@@ -58,5 +52,7 @@ public class UserController {
 
         return userService.updateProfile(userProfileDTO);
     }
+
+
 
 }

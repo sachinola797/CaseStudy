@@ -11,7 +11,7 @@ public class UserProfile {
     private int userID;
     private String name;
     private String email;
-    @Column(nullable = true)
+    @Column(nullable = true,unique = true)
     private long phone;
     @OneToOne
     @JoinColumn(name = "addressID")

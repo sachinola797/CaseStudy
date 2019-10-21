@@ -51,7 +51,12 @@ public class UserService {
         UserCredentials verifyEmail=userCredentialsRepo.findByEmail(email);
         if(verifyEmail!=null){
             if(verifyEmail.getUserId()!=userId)
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email Id is already taken");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email Id is already taken!!!");
+        }
+        UserProfile verifyPhone=userProfileRepo.getUserProfileByPhone(userProfileDTO.getPhone());
+        if(verifyPhone!=null){
+            if(verifyPhone.getUserID()!=userId)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Phone no. is already taken!!!");
         }
         userCredentials.setEmail(email);
         userCredentialsRepo.save(userCredentials);
@@ -70,10 +75,17 @@ public class UserService {
 
     public ResponseEntity<?> getProfile(Integer userId){
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
+        return ResponseEntity.ok().body(user);
+    }
+
+    public ResponseEntity<?> getProfileByPhone(long phone){
+        UserProfile user=userProfileRepo.getUserProfileByPhone(phone);
+        if(user==null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User by this phone number doesn't exists !!!");
         return ResponseEntity.ok(user);
     }
 
-    public  String capitalise(String s){
+    private   String capitalise(String s){
         String[] list=s.split(" ");
         StringBuilder finalString= new StringBuilder();
         for(String a:list) {
