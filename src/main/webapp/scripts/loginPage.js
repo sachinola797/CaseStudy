@@ -1,3 +1,7 @@
+if (role != null && token != null && userId != null)
+    window.location = "/";
+
+
 function submitLoginForm(event) {
     event.preventDefault();
     let user=new FormData();

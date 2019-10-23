@@ -33,9 +33,9 @@ function submitProduct(event) {
     let header2 = new Header("Content-Type", "application/json;charset=UTF-8");
     let url;
     if(modifyProduct_Id!=null)
-        url="http://localhost:8080/products/updateProduct";
+        url="/products/updateProduct";
     else
-        url="http://localhost:8080/products/addProduct";
+        url="/products/addProduct";
 
     sendRequest(url, "POST", [header1, header2], JSON.stringify(product), function() {
 
@@ -89,7 +89,7 @@ function setModifyForm(productId_element) {
         msg.children[1].innerHTML="Please insert a valid product id...";
         return;
     }
-    sendRequest("http://localhost:8080/products/getById/"+productId, "GET", null, null, function() {
+    sendRequest("/products/getById/"+productId, "GET", null, null, function() {
 
         if (this.status===401 || this.getResponseHeader("tokenValidity") === "expired"){
             localStorage.removeItem("Authorization");

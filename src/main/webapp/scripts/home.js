@@ -1,6 +1,6 @@
 function category_dropdown() {
 
-    sendRequest("http://localhost:8080/products/allCategories", "GET", null, null, function() {
+    sendRequest("/products/allCategories", "GET", null, null, function() {
         if (this.status === 200) {
             const categories = JSON.parse(this.responseText);
             let select_option = document.getElementById("cat_choice");
@@ -17,7 +17,7 @@ function category_dropdown() {
 //----------------------------------------- Filters -----------------------------------------------------------------------------
 
 function categoryFilterFillUp() {
-    sendRequest("http://localhost:8080/products/allCategories", "GET", null, null, function() {
+    sendRequest("/products/allCategories", "GET", null, null, function() {
         if (this.status === 200) {
             const allcategories = JSON.parse(this.responseText);
             let categoryList = document.getElementById("category");
@@ -54,8 +54,11 @@ function categoryFilterFillUp() {
 
 // if you select a category from filters corresponding category will be reflected a search bar
 function selectCategory(Element) {
-    document.getElementById(Element.children[0].href.substr(23) + "_" + Element.children[0].innerHTML).selected = "selected";
+    //for local host: substr(23)
+    //for ip : substr(26)
+    document.getElementById(Element.children[0].href.substr(26) + "_" + Element.children[0].innerHTML).selected = "selected";
 }
+
 
 // if you select a category from search corresponding category will be opens on filters
 function selectFilterCategory(SelectElement) {
@@ -111,14 +114,14 @@ function searchProductsWithFilters() {
 
     let header = new Header("Content-Type", "application/json;charset=UTF-8");
 
-    sendRequest("http://localhost:8080/products/" + categoryName + "/getFilteredProducts", "POST", [header], JSON.stringify(filterList), setProducts);
+    sendRequest("/products/" + categoryName + "/getFilteredProducts", "POST", [header], JSON.stringify(filterList), setProducts);
 
 
 }
 
 // loads products at home initially
 function loadProducts() {
-    sendRequest("http://localhost:8080/products/allProducts", "GET", null, null, setProducts);
+    sendRequest("/products/allProducts", "GET", null, null, setProducts);
 }
 
 // function for displaying all result products

@@ -7,7 +7,7 @@ function customersearch(event) {
     document.getElementById("Orders").classList.add("d-none");
     const phone=document.getElementById("phone-search").value;
     let header = new Header("Authorization",token);
-    sendRequest("http://localhost:8080/getProfileByPhone/" + phone, "GET", [header], null, insertCustomerDetails);
+    sendRequest("/getProfileByPhone/" + phone, "GET", [header], null, insertCustomerDetails);
 
 }
 
@@ -48,7 +48,7 @@ let insertCustomerDetails = function() {
 function getCustomerOrders(Obj) {
     Obj.parentElement.classList.add("d-none");
     let header = new Header("Authorization", token);
-    sendRequest("http://localhost:8080/order/" + Obj.id + "/getOrders", "GET", [header], null, function () {
+    sendRequest("/order/" + Obj.id + "/getOrders", "GET", [header], null, function () {
         if (this.status === 401 || this.getResponseHeader("tokenValidity") === "expired") {
             localStorage.removeItem("Authorization");
             localStorage.removeItem("userId");

@@ -20,8 +20,9 @@ public interface ProductRepo extends JpaRepository<Product,Integer>, JpaSpecific
     List<Product> findProductsBySubcategoriesContains(Subcategory subcategory);
     List<Product> findProductsByCategoryIgnoreCase(String category);
 
-    List<Product> findAllByNameContaining(String search);
+    List<Product> findAllByNameContainingOrDetailsContaining(String search,String search1);
 
-    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE %:search%")
-    List<Product> find(@Param("search") String searchString);
+    //considerable method
+//    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE %:search%")
+//    List<Product> find(@Param("search") String searchString);
 }

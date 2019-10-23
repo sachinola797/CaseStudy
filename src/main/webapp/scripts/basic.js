@@ -23,7 +23,10 @@ function navbar() {
 
 function logout(){
     let header=new Header("Authorization",token);
-    sendRequest("http://localhost:8080/logout","GET",[header],null,function () {
+    sendRequest("/logout","GET",[header],null,function () {
+        if(this.status===400){
+            alert(this.responseText);
+        }
         if(this.status===200){
             alert("You have been logout successfully...");
             localStorage.removeItem("Authorization");
@@ -73,7 +76,7 @@ function addToCart(Obj) {
     if(!Number(productId))
         return;
     let header = new Header("Authorization", token);
-    sendRequest("http://localhost:8080/cart/"+userId+"/add/"+productId, "GET", [header], null, function() {
+    sendRequest("/cart/"+userId+"/add/"+productId, "GET", [header], null, function() {
 
         if (this.status===401 || this.getResponseHeader("tokenValidity") === "expired"){
             localStorage.removeItem("Authorization");

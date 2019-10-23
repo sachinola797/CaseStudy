@@ -43,7 +43,7 @@ public class FilterSearchSpecification implements Specification<Product> {
         }
 
         if(searchString!=null){
-            Predicate predicate=criteriaBuilder.like(root.get("name"),"%"+searchString+"%");
+            Predicate predicate=criteriaBuilder.or(criteriaBuilder.like(root.get("name"),"%"+searchString+"%"),criteriaBuilder.like(root.get("details"),"%"+searchString+"%"));
             predicateArrayList.add(predicate);
         }
 

@@ -4,7 +4,7 @@ if (role == null || token == null || role !== "USER" || userId == null)
 
 function setDetails() {
     let header = new Header("Authorization",token);
-    sendRequest("http://localhost:8080/getProfile/" + userId, "GET", [header], null, insertDetails);
+    sendRequest("/getProfile/" + userId, "GET", [header], null, insertDetails);
 }
 
 let insertDetails = function() {
@@ -72,7 +72,7 @@ function submitUserProfileForm() {
     let user = new UserProfile(userId, document.getElementById("name").value, document.getElementById("email").value, document.getElementById("phone").value,address);
     let header1 = new Header("Authorization", token);
     let header2 = new Header("Content-Type", "application/json;charset=UTF-8");
-    sendRequest("http://localhost:8080/updateProfile", "POST", [header1, header2], JSON.stringify(user), function() {
+    sendRequest("/updateProfile", "POST", [header1, header2], JSON.stringify(user), function() {
 
         if (this.status===401 || this.getResponseHeader("tokenValidity") === "expired"){
             localStorage.removeItem("Authorization");

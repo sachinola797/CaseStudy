@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserCredentialsRepo userCredentialsRepo;
 
     @Autowired
-    LogoutHandlerImpl logoutHandler;
+    private LogoutHandlerImpl logoutHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .addLogoutHandler(logoutHandler)
+                .logoutSuccessHandler(logoutHandler)
                 .permitAll();
 
 

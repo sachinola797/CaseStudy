@@ -3,7 +3,7 @@ if (role == null || token == null || role !== "USER" || userId == null)
 
 function getOrderList() {
     let header = new Header("Authorization", token);
-    sendRequest("http://localhost:8080/order/" + userId + "/getOrders", "GET", [header], null, setOrder);
+    sendRequest("/order/" + userId + "/getOrders", "GET", [header], null, setOrder);
 }
 
 let setOrder = function() {

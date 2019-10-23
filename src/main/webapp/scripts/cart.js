@@ -3,7 +3,7 @@ if (role == null || token == null || role !== "USER" || userId == null)
 
 function getCartList() {
     let header = new Header("Authorization", token);
-    sendRequest("http://localhost:8080/cart/" + userId + "/getCart", "GET", [header], null, setCart);
+    sendRequest("/cart/" + userId + "/getCart", "GET", [header], null, setCart);
 }
 
 let setCart = function() {
@@ -67,7 +67,7 @@ function updateProduct(Obj) {
     const data= new FormData();
     data.append("quantity",quantity);
     let header=new Header("Authorization",token);
-    sendRequest("http://localhost:8080/cart/"+userId+"/changeQuantity/"+productId, "POST", [header], data, function() {
+    sendRequest("/cart/"+userId+"/changeQuantity/"+productId, "POST", [header], data, function() {
 
         if (this.status===401 || this.getResponseHeader("tokenValidity") === "expired"){
             localStorage.removeItem("Authorization");
@@ -94,7 +94,7 @@ function removeItem(Obj) {
     if(!Number(productId))
         return;
     let header = new Header("Authorization", token);
-    sendRequest("http://localhost:8080/cart/"+userId+"/remove/"+productId, "GET", [header], null, function() {
+    sendRequest("/cart/"+userId+"/remove/"+productId, "GET", [header], null, function() {
 
         if (this.status===401 || this.status===400 || this.getResponseHeader("tokenValidity") === "expired"){
             localStorage.removeItem("Authorization");
@@ -111,7 +111,7 @@ function removeItem(Obj) {
 
 function placeOrder() {
     let header = new Header("Authorization", token);
-    sendRequest("http://localhost:8080/order/"+userId+"/createOrder", "GET", [header], null, function() {
+    sendRequest("/order/"+userId+"/createOrder", "GET", [header], null, function() {
 
         if (this.status===401 || this.status===400 || this.getResponseHeader("tokenValidity") === "expired"){
             localStorage.removeItem("Authorization");
