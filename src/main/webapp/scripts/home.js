@@ -31,10 +31,10 @@ function categoryFilterFillUp() {
                 let category_body = document.getElementById("category_body_id").cloneNode(true);
                 category_body.id = "C" + categoryData.categoryId;
                 let sortedSubcategories=categoryData.subcategories.sort(function(a,b) {
-                                                            var x = a.name.toLowerCase();
-                                                            var y = b.name.toLowerCase();
-                                                            return x < y ? -1 : x > y ? 1 : 0;
-                                                        });
+                    var x = a.name.toLowerCase();
+                    var y = b.name.toLowerCase();
+                    return x < y ? -1 : x > y ? 1 : 0;
+                });
                 for (let subcategoryData of sortedSubcategories) {
                     let subcategory_element = category_body.children[0].children[0].cloneNode(true);
                     subcategory_element.classList.remove("d-none");
@@ -71,11 +71,10 @@ function selectFilterCategory(SelectElement) {
     if (filterElement != null)
         filterElement.classList.add("show");
 }
-let a;
+
 // display modify or add to cart button on products
 function checkForAdmin(Element) {
-    a=Element;
-    let buttons = Element.parentElement.children[1].children[1];
+    let buttons = Element.parentElement.children[1].children[4];
     if (role === "ADMIN") {
         buttons.children[1].classList.add("d-none");
         buttons.children[2].classList.remove("d-none");
@@ -97,7 +96,7 @@ function searchProductsWithFilters() {
     const categoryName = selectedCategory.value;
 
 
-    let searchString = document.getElementById("searchString").value;
+    const searchString = document.getElementById("searchString").value;
 
     const categoryId = selectedCategory.id.split("_")[0];
     const filterCategoryElement = document.getElementById(categoryId);
@@ -109,9 +108,6 @@ function searchProductsWithFilters() {
 
 
     const maxPrice = document.getElementById("maxPrice").value;
-
-    if(searchString==="")
-        searchString=null;
 
     let filterList = new Filters(selectedSubcategories, searchString, minPrice, maxPrice);
 
@@ -146,14 +142,14 @@ let setProducts = function() {
             let product = document.getElementById("product_Template").cloneNode(true);
             product.classList.remove("d-none");
             product.children[1].id = "P_" + productData.productId;
-            product.children[1].children[0].children[0].innerHTML = productData.name;
-            product.children[1].children[0].children[1].innerHTML = productData.category;
+            product.children[1].children[0].innerHTML = productData.name;
+            product.children[1].children[1].innerHTML = productData.category;
             let subcategories = "";
             for (let s of productData.subcategories)
                 subcategories += ", " + s.name;
-            product.children[1].children[0].children[2].children[0].innerHTML = subcategories.substr(2);
-            product.children[1].children[0].children[3].innerHTML = productData.details;
-            product.children[1].children[1].children[0].innerHTML= "₹ " + productData.price;
+            product.children[1].children[2].children[0].innerHTML = subcategories.substr(2);
+            product.children[1].children[3].innerHTML = productData.details;
+            product.children[1].children[4].children[0].innerHTML= "₹ " + productData.price;
             product_display.appendChild(product);
         }
     }
