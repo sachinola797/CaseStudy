@@ -236,12 +236,12 @@ public class ProductServices {
             if(p.getSubcategories().containsAll(subcategories))
                 finalProducts.add(p);
         }
+
         Collections.sort(finalProducts, (p1, p2) -> {
             String p1_name=p1.getName().toLowerCase();
             String p2_name=p2.getName().toLowerCase();
             return p1_name.compareTo(p2_name);
         });
-
         return ResponseEntity.ok().body(finalProducts);
     }
 

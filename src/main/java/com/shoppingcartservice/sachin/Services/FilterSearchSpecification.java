@@ -1,12 +1,12 @@
 package com.shoppingcartservice.sachin.Services;
 
 import com.shoppingcartservice.sachin.Entities.Product.Product;
+import com.shoppingcartservice.sachin.Entities.Product.Subcategory;
+import com.shoppingcartservice.sachin.Reposistories.Product.SubcategoryRepo;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,6 @@ public class FilterSearchSpecification implements Specification<Product> {
     private double maxPrice;
     private String category;
     private String searchString;
-
 
     public FilterSearchSpecification(double minPrice, double maxPrice, String category, String searchString) {
         this.minPrice = minPrice;
@@ -48,9 +47,6 @@ public class FilterSearchSpecification implements Specification<Product> {
         }
 
 
-        Predicate[] predicates=new Predicate[predicateArrayList.size()];
-        for(int i=0;i<predicateArrayList.size();i++)
-            predicates[i]=predicateArrayList.get(i);
-        return criteriaBuilder.and(predicates);
+        return criteriaBuilder.and(predicateArrayList.toArray(Predicate[]::new));
     }
 }
