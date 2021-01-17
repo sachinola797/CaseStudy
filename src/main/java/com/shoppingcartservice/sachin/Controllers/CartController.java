@@ -20,28 +20,28 @@ public class CartController {
     private JwtHelper jwtHelper;
 
     @GetMapping("/{userId}/getCart")
-    public ResponseEntity<?> getCart(@PathVariable("userId") Integer userId, HttpServletRequest request) {
+    public ResponseEntity<?> getCart(@PathVariable("userId") Long userId, HttpServletRequest request) {
         if(!jwtHelper.getUserIdAuthenticated(userId,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Don't interfere into other's business...");
         return cartService.getCart(userId);
     }
 
     @GetMapping("/{userId}/add/{productId}")
-    public ResponseEntity<?> addProductToCart(@PathVariable("userId") Integer userId,@PathVariable("productId") Integer productId,HttpServletRequest request) {
+    public ResponseEntity<?> addProductToCart(@PathVariable("userId") Long userId,@PathVariable("productId") Long productId,HttpServletRequest request) {
         if(!jwtHelper.getUserIdAuthenticated(userId,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Don't interfere into other's business...");
         return cartService.addProductToCart(userId,productId);
     }
 
     @GetMapping("/{userId}/getCartItem/{cartItemId}")
-    public ResponseEntity<?> getCartItem(@PathVariable("userId") Integer userId,@PathVariable("cartItemId") Integer cartItemId,HttpServletRequest request) {
+    public ResponseEntity<?> getCartItem(@PathVariable("userId") Long userId,@PathVariable("cartItemId") Long cartItemId,HttpServletRequest request) {
         if(!jwtHelper.getUserIdAuthenticated(userId,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Don't interfere into other's business...");
         return cartService.getCartItem(userId,cartItemId);
     }
 
     @GetMapping("/{userId}/remove/{productId}")
-    public ResponseEntity<?> removeProductFromCart(@PathVariable("userId") Integer userId,@PathVariable("productId") Integer productId,HttpServletRequest request) {
+    public ResponseEntity<?> removeProductFromCart(@PathVariable("userId") Long userId,@PathVariable("productId") Long productId,HttpServletRequest request) {
         if(!jwtHelper.getUserIdAuthenticated(userId,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Don't interfere into other's business...");
         return cartService.removeProductFromCart(userId,productId);
@@ -49,7 +49,7 @@ public class CartController {
 
 
     @PostMapping("/{userId}/changeQuantity/{productId}")
-    public ResponseEntity<?> changeQuantity1(@PathVariable("userId") Integer userId,@PathVariable("productId") Integer productId,@FormParam("quantity")  Integer quantity,HttpServletRequest request) {
+    public ResponseEntity<?> changeQuantity1(@PathVariable("userId") Long userId,@PathVariable("productId") Long productId,@FormParam("quantity")  Integer quantity,HttpServletRequest request) {
         if(!jwtHelper.getUserIdAuthenticated(userId,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Don't interfere into other's business...");
         if(quantity==null)
@@ -58,7 +58,7 @@ public class CartController {
     }
 
     @PostMapping("/changeQuantity/{cartItemId}")
-    public ResponseEntity<?> changeQuantity2(@PathVariable("cartItemId") Integer cartItemId,@FormParam("quantity") Integer quantity,HttpServletRequest request) {
+    public ResponseEntity<?> changeQuantity2(@PathVariable("cartItemId") Long cartItemId,@FormParam("quantity") Integer quantity,HttpServletRequest request) {
         if(quantity==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please insert quantity...");
         return cartService.changeQuantity2(jwtHelper.getCurrentUserId(request),cartItemId,quantity);

@@ -35,7 +35,7 @@ public class JwtHelper {
         return null;
     }
 
-    public boolean getUserIdAuthenticated(Integer userId,HttpServletRequest request){
+    public boolean getUserIdAuthenticated(Long userId,HttpServletRequest request){
 
         String email=getEmailFromJwt(request);
         UserCredentials userCredentials=userCredentialsRepo.findByEmail(email);
@@ -50,7 +50,7 @@ public class JwtHelper {
     }
 
 
-    public Integer getCurrentUserId(HttpServletRequest request){
+    public Long getCurrentUserId(HttpServletRequest request){
         String email=getEmailFromJwt(request);
         UserCredentials userCredentials=userCredentialsRepo.findByEmail(email);
         UserProfile user=userCredentials.getUserProfile();

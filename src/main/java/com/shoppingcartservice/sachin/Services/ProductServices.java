@@ -155,7 +155,7 @@ public class ProductServices {
         return ResponseEntity.ok().body(product);
     }
 
-    public ResponseEntity<?> getProductById(Integer productId) {
+    public ResponseEntity<?> getProductById(Long productId) {
         Product product=productRepo.findProductByProductId(productId);
         if(product==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product doesn't exists by this product id!!!");
