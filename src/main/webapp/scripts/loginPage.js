@@ -24,6 +24,7 @@ function submitSignUpForm() {
     let user= new FormData();
     user.append("name",document.forms["signUpForm"]["name"].value);
     user.append("email",document.forms["signUpForm"]["email"].value);
+    user.append("phone",document.forms["signUpForm"]["phone"].value);
     user.append("password",document.forms["signUpForm"]["password"].value);
     sendRequest("/signup","POST",null,user,function () {
         if(this.status===401){
