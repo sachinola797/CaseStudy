@@ -8,16 +8,16 @@ import javax.persistence.*;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderItemId;
+    private long orderItemId;
     private int quantity;
     @ManyToOne
     private Product product;
 
-    public int getOrderItemId() {
+    public long getOrderItemId() {
         return orderItemId;
     }
 
-    public void setOrderItemId(int orderItemId) {
+    public void setOrderItemId(long orderItemId) {
         this.orderItemId = orderItemId;
     }
 

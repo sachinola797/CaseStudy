@@ -36,7 +36,7 @@ public class ProductController {
     }
 
     @GetMapping("/getById/{productId}")
-    public ResponseEntity<?> getProductById(@PathVariable("productId") Integer productId) {
+    public ResponseEntity<?> getProductById(@PathVariable("productId") Long productId) {
 
         return productServices.getProductById(productId);
     }

@@ -9,10 +9,8 @@ import java.util.List;
 public class Subcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int subcategoryId;
+    private long subcategoryId;
     private String name;
-
-
 
     public Subcategory() {
     }
@@ -21,11 +19,11 @@ public class Subcategory {
         this.name = name;
     }
 
-    public int getSubcategoryId() {
+    public long getSubcategoryId() {
         return subcategoryId;
     }
 
-    public void setSubcategoryId(int subcategoryId) {
+    public void setSubcategoryId(long subcategoryId) {
         this.subcategoryId = subcategoryId;
     }
 
@@ -36,6 +34,4 @@ public class Subcategory {
     public void setName(String name) {
         this.name = name;
     }
-
-
 }
