@@ -9,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class DbInit implements CommandLineRunner {
     @Autowired
@@ -27,11 +29,11 @@ public class DbInit implements CommandLineRunner {
             adminCreds=new UserCredentials();
             adminCreds.setUserProfile(admin);
             adminCreds.setEmail("admin@gmail.com");
-            adminCreds.setPassword(passwordEncoder.encode(System.getenv("ADMIN_PASSWORD")));
+            adminCreds.setPassword(passwordEncoder.encode("admin@1234"));
             adminCreds.setRoles("ADMIN");
             userCredentialsRepo.save(adminCreds);
         } else {
-            adminCreds.setPassword(passwordEncoder.encode(System.getenv("ADMIN_PASSWORD")));
+            adminCreds.setPassword(passwordEncoder.encode("admin@1234"));
         }
     }
 }
