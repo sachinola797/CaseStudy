@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SubcategoryRepo extends JpaRepository<Subcategory,Long> {
-    Subcategory getSubcategoryBySubcategoryId(Long subcategoryId);
+public interface SubcategoryRepo extends JpaRepository<Subcategory,Integer> {
+    Subcategory getSubcategoryBySubcategoryId(Integer subcategoryId);
     Subcategory getSubcategoryByNameIgnoreCase(String name);
 }

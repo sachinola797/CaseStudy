@@ -3,7 +3,7 @@ package com.shoppingcartservice.sachin.DTOs;
 import com.shoppingcartservice.sachin.Entities.User.Address;
 
 public class UserProfileDTO {
-    private long userID;
+    private int userID;
     private String email;
     private String name;
     private long phone;
@@ -27,11 +27,11 @@ public class UserProfileDTO {
         this.email = email;
     }
 
-    public long getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(long userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

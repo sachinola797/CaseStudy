@@ -18,14 +18,14 @@ public class OrderController {
     private JwtHelper jwtHelper;
 
     @GetMapping("/createOrder")
-    public ResponseEntity<?> createOrder(@PathVariable("userId") Long userId, HttpServletRequest request) {
+    public ResponseEntity<?> createOrder(@PathVariable("userId") Integer userId, HttpServletRequest request) {
         if(!jwtHelper.getUserIdAuthenticated(userId,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Don't interfere into other's business...");
         return orderService.createOrder(userId);
     }
 
     @GetMapping("/getOrders")
-    public ResponseEntity<?> getOrders(@PathVariable("userId") Long userId,HttpServletRequest request) {
+    public ResponseEntity<?> getOrders(@PathVariable("userId") Integer userId,HttpServletRequest request) {
         if(!jwtHelper.getUserIdAuthenticated(userId,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Don't interfere into other's business...");
         return orderService.getOrders(userId);

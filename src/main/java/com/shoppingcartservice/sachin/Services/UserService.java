@@ -26,17 +26,14 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<?> signup(String name,String email,String password,Long phone) {
+    public ResponseEntity<?> signup(String name,String email,String password) {
         if(userCredentialsRepo.findByEmail(email)!=null)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User already with given email id!!!");
-        if(userProfileRepo.getUserProfileByPhone(phone)!=null)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User already with given phone number!!!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User already exist!!!");
 
         UserCredentials user=new UserCredentials();
         UserProfile userProfile=new UserProfile();
         userProfile.setName(capitalise(name));
         userProfile.setEmail(email);
-        userProfile.setPhone(phone);
         userProfileRepo.save(userProfile);
 
         user.setEmail(email);
@@ -48,12 +45,12 @@ public class UserService {
     }
 
     public ResponseEntity<?> updateProfile(UserProfileDTO userProfileDTO){
-        long userId=userProfileDTO.getUserID();
+        int userId=userProfileDTO.getUserID();
         String email=userProfileDTO.getEmail();
-        UserCredentials userCredentials=userCredentialsRepo.findByUserProfile_UserID(userId);
+        UserCredentials userCredentials=userCredentialsRepo.findByUserId(userId);
         UserCredentials verifyEmail=userCredentialsRepo.findByEmail(email);
         if(verifyEmail!=null){
-            if(verifyEmail.getUserId()!=userCredentials.getUserId())
+            if(verifyEmail.getUserId()!=userId)
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email Id is already taken!!!");
         }
         UserProfile verifyPhone=userProfileRepo.getUserProfileByPhone(userProfileDTO.getPhone());
@@ -76,7 +73,7 @@ public class UserService {
         return ResponseEntity.ok("User Details updated successfully!!!");
     }
 
-    public ResponseEntity<?> getProfile(Long userId){
+    public ResponseEntity<?> getProfile(Integer userId){
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         return ResponseEntity.ok().body(user);
     }

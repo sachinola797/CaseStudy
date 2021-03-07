@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Entity
 public class UserProfile {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userID;
+    private int userID;
     private String name;
     private String email;
-    @Column(unique = true)
+    @Column(nullable = true,unique = true)
     private long phone;
     @OneToOne
     @JoinColumn(name = "addressID")
@@ -19,10 +19,9 @@ public class UserProfile {
 
     public UserProfile() {}
 
-    public UserProfile(String name, String email, long phone) {
+    public UserProfile(String name, String email) {
         this.name = name;
         this.email = email;
-        this.phone = phone;
     }
 
     public String getName() {
@@ -57,7 +56,7 @@ public class UserProfile {
         this.address = address;
     }
 
-    public long getUserID() {
+    public int getUserID() {
         return userID;
     }
 

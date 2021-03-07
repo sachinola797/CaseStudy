@@ -27,7 +27,7 @@ public class CartService {
     @Autowired
     private ProductRepo productRepo;
 
-    public ResponseEntity<?> getCart(Long userId) {
+    public ResponseEntity<?> getCart(Integer userId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         Cart cart=cartRepo.findCartByUserProfile(user);
         if(cart==null){
@@ -41,7 +41,7 @@ public class CartService {
         return ResponseEntity.ok(cart);
     }
 
-    public ResponseEntity<?> addProductToCart(Long userId,Long productId) {
+    public ResponseEntity<?> addProductToCart(Integer userId,Integer productId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         Product product=productRepo.findProductByProductId(productId);
         if(product==null)
@@ -79,7 +79,7 @@ public class CartService {
         return ResponseEntity.ok(cartItem);
     }
 
-    public ResponseEntity<?> getCartItem(Long userId,Long cartItemId) {
+    public ResponseEntity<?> getCartItem(Integer userId,Integer cartItemId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         CartItem cartItem=cartItemRepo.getCartItemByCartItemId(cartItemId);
         if(cartItem==null)
@@ -92,7 +92,7 @@ public class CartService {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sorry, this doesn't belongs to you!!!");
     }
 
-    public ResponseEntity<?> removeProductFromCart(Long userId,Long productId) {
+    public ResponseEntity<?> removeProductFromCart(Integer userId,Integer productId) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         Product product=productRepo.findProductByProductId(productId);
 
@@ -113,7 +113,7 @@ public class CartService {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sorry, your cart doesn't contains this item!!!");
     }
 
-    public ResponseEntity<?> changeQuantity1(Long userId,Long productId, Integer quantity) {
+    public ResponseEntity<?> changeQuantity1(Integer userId,Integer productId, Integer quantity) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         Product product=productRepo.findProductByProductId(productId);
         if(product==null)
@@ -156,7 +156,7 @@ public class CartService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product is not available in the cart!!!");
     }
 
-    public ResponseEntity<?> changeQuantity2(Long userId,Long cartItemId, Integer quantity) {
+    public ResponseEntity<?> changeQuantity2(Integer userId,Integer cartItemId, Integer quantity) {
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         CartItem cartItem=cartItemRepo.getCartItemByCartItemId(cartItemId);
         if(cartItem==null)

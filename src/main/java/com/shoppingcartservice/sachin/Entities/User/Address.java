@@ -5,18 +5,18 @@ import javax.persistence.*;
 @Entity
 public class Address {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long addressID;
+    private int addressID;
     private String street;
     private String city;
     private String state;
     @Column(nullable = true)
     private int pincode;
 
-    public long getAddressID() {
+    public int getAddressID() {
         return addressID;
     }
 
-    public void setAddressID(long addressID) {
+    public void setAddressID(int addressID) {
         this.addressID = addressID;
     }
 
