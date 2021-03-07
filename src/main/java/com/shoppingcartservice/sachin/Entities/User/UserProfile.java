@@ -1,8 +1,5 @@
 package com.shoppingcartservice.sachin.Entities.User;
 
-
-import com.shoppingcartservice.sachin.Entities.User.Address;
-
 import javax.persistence.*;
 
 @Entity

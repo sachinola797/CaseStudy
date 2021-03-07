@@ -54,9 +54,7 @@ function categoryFilterFillUp() {
 
 // if you select a category from filters corresponding category will be reflected a search bar
 function selectCategory(Element) {
-    //for local host: substr(23)
-    //for ip : substr(26)
-    document.getElementById(Element.children[0].href.substr(26) + "_" + Element.children[0].innerHTML).selected = "selected";
+    document.getElementById(Element.children[0].href.split("#")[1] + "_" + Element.children[0].innerHTML).selected = "selected";
 }
 
 

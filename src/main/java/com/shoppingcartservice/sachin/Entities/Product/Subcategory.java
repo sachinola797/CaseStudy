@@ -1,9 +1,6 @@
 package com.shoppingcartservice.sachin.Entities.Product;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 public class Subcategory {

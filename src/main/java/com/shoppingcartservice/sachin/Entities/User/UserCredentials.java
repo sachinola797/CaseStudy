@@ -3,6 +3,7 @@ package com.shoppingcartservice.sachin.Entities.User;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,16 +13,13 @@ public class UserCredentials {
     @Column(unique =true)
     private String email;
     private String password;
-
     private int active=1;
-
     private String roles = "";
+    private Date denyBefore;
 
     @OneToOne
     @JoinColumn(name = "userProfileID")
     private UserProfile userProfile;
-
-    private String token;
 
     public UserCredentials() { this.roles="USER";}
 
@@ -39,12 +37,12 @@ public class UserCredentials {
         this.userId = userId;
     }
 
-    public String getToken() {
-        return token;
+    public Date getDenyBefore() {
+        return denyBefore;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setDenyBefore(Date date) {
+        this.denyBefore = date;
     }
 
     public int getActive() {

@@ -44,7 +44,6 @@ public class UserService {
         user.setUserProfile(userProfile);
         userCredentialsRepo.save(user);
         return ResponseEntity.ok("{\"result\": \"success\"}");
-
     }
 
     public ResponseEntity<?> updateProfile(UserProfileDTO userProfileDTO){

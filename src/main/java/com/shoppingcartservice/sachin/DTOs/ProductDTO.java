@@ -1,8 +1,5 @@
 package com.shoppingcartservice.sachin.DTOs;
 
-import com.shoppingcartservice.sachin.Entities.Product.Category;
-import com.shoppingcartservice.sachin.Entities.Product.Subcategory;
-
 import java.util.List;
 
 public class ProductDTO {

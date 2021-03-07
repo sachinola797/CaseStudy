@@ -94,3 +94,18 @@ function submitUserProfileForm() {
         return false;
     });
 }
+
+function logoutFromAllDevices() {
+    let header=new Header("Authorization",token);
+    sendRequest("/logoutFromAllDevices/" + userId,"GET",[header],null,function () {
+        if(this.status===200){
+            alert(this.responseText);
+            localStorage.removeItem("Authorization");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("role");
+            window.location="/";
+            return;
+        }
+        alert(this.responseText);
+    })
+}

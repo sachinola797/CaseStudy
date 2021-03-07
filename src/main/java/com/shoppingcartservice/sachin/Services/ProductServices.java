@@ -1,7 +1,5 @@
 package com.shoppingcartservice.sachin.Services;
 
-
-
 import com.shoppingcartservice.sachin.DTOs.FilterRequestDTO;
 import com.shoppingcartservice.sachin.DTOs.ProductDTO;
 import com.shoppingcartservice.sachin.Entities.Product.Product;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

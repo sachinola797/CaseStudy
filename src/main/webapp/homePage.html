@@ -24,123 +24,122 @@
 </head>
 
 <body onload="navbar(),category_dropdown(),categoryFilterFillUp(),loadProducts()">
-<!-------------------------------------------Navbar starts-------------------------------------------------------------->
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="/"><img src="images/logo.png" style="width: 40px" alt="site-logo"> Shopping Delight</a>
-    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb1,#navb2" aria-expanded="false">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse mx-auto" id="navb1">
-        <ul class="navbar-nav text-center mr-auto">
-            <li class="nav-item d-none" id="navbar-addProduct" onclick="callingAddProductPage()">
-                <a class="nav-link">Add Product</a>
-            </li>
-            <li class="nav-item d-none" id="navbar-modifyProduct" onclick="callingModifyProductPage()">
-                <a class="nav-link">Modify Product</a>
-            </li>
-        </ul>
-    </div>
-
-    <form class="form-inline form-group w-50 mx-auto my-2 my-lg-0">
-        <select id="cat_choice" class="form-control w-20" onchange="selectFilterCategory(this),searchProductsWithFilters()" id="search-select">
-            <option selected="selected" id="all"  name="category" value="all">All</option>
-        </select>
-        <input id="searchString" class="form-control col" type="text" onkeyup="searchProductsWithFilters()" placeholder="Search your product here...">
-    </form>
-    <div class="collapse navbar-collapse ml-auto" id="navb2">
-        <ul class="navbar-nav text-center ml-auto">
-            <li id="myAccount" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle waves-effect waves-light d-none" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
-                <div class="dropdown-menu dropdown-info" aria-labelledby="userName">
-                    <a class="dropdown-item waves-effect waves-light" href="/userProfilePage">My Profile</a>
-                    <a class="dropdown-item waves-effect waves-light" href="/cartPage">My Cart</a>
-                    <a class="dropdown-item waves-effect waves-light" href="/orderPage">My Orders</a>
-                    <a class="dropdown-item waves-effect waves-light" onclick="logout()">Logout</a>
-                </div>
-            </li>
-            <li id="myCart" class="nav-item rounded-lg mx-2 d-none">
-                <a class="nav-link text-light" href="/cartPage"><i class="fa fa-shopping-cart"> </i>  Cart</a>
-            </li>
-            <li id="customerSupport-button" class="nav-item bg-info rounded-lg mx-2 d-none">
-                <a class="nav-link text-light" href="/customerSupportPage"><i class="fa fa-phone">  </i> Customer Support</a>
-            </li>
-            <li id="login-button" class="nav-item bg-info rounded-lg mx-2">
-                <a class="nav-link text-light" href="/loginPage">Login/SignUp</a>
-            </li>
-            <li id="logout-button" class="nav-item bg-danger rounded-lg mx-2 d-none">
-                <a class="nav-link text-light" onclick="logout()">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<!-------------------------------------------Navbar ends-------------------------------------------------------------->
-
-
-<div class="d-sm-flex mt-3">
-
-    <!----------------------------------------------- Filters ----------------------------------------------------------------->
-    <div class="col-sm-2">
-        <div class="text-center text-light my-3">
-            <h4>Price Filter</h4>
-            <div class="dropdown-divider"></div>
-            <form class="my-2 form-inline justify-content-between">
-                <label class="text-light" for="minPrice">Min Price:</label>
-                <input type="number" class="form-control col-8 text-center" id="minPrice" onkeyup="searchProductsWithFilters()" min="0" placeholder="0">
-            </form>
-
-            <form class="my-2 form-inline justify-content-between">
-                <label class="text-light" for="maxPrice">Max Price:</label>
-                <input type="number" class="form-control col-8 text-center" id="maxPrice" onkeyup="searchProductsWithFilters()" min="0" placeholder="0">
-            </form>
-            <div class="dropdown-divider"></div>
+    <!-------------------------------------------Navbar starts-------------------------------------------------------------->
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><img src="images/logo.png" style="width: 40px" alt="site-logo"> Shopping Delight</a>
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb1,#navb2" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse mx-auto" id="navb1">
+            <ul class="navbar-nav text-center mr-auto">
+                <li class="nav-item d-none" id="navbar-addProduct" onclick="callingAddProductPage()">
+                    <a class="nav-link">Add Product</a>
+                </li>
+                <li class="nav-item d-none" id="navbar-modifyProduct" onclick="callingModifyProductPage()">
+                    <a class="nav-link">Modify Product</a>
+                </li>
+            </ul>
         </div>
-        <div class="my-3 text-center text-light">
-            <h4>Categories</h4>
-            <div class="dropdown-divider"></div>
-            <div id="category" onclick="searchProductsWithFilters()">
-                <div id="category_template" class="card d-none">
-                    <div id="category_header" onclick="selectCategory(this)" class="card-header p-1 text-center">
-                        <a class="card-link text-center d-block" data-toggle="collapse" href="#category_body_id">
-                            Category Name
-                        </a>
+        <form class="form-inline form-group w-50 mx-auto my-2 my-lg-0">
+            <select id="cat_choice" class="form-control w-20 cursor-pointer" onchange="selectFilterCategory(this),searchProductsWithFilters()" id="search-select">
+                <option selected="selected" id="all"  name="category" value="all">All</option>
+            </select>
+            <input id="searchString" class="form-control col" type="text" onkeyup="searchProductsWithFilters()" placeholder="Search your product here...">
+        </form>
+        <div class="collapse navbar-collapse ml-auto" id="navb2">
+            <ul class="navbar-nav text-center ml-auto">
+                <li id="myAccount" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light d-none" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
+                    <div class="dropdown-menu dropdown-info" aria-labelledby="userName">
+                        <a class="dropdown-item waves-effect waves-light" href="/userProfilePage">My Profile</a>
+                        <a class="dropdown-item waves-effect waves-light" href="/cartPage">My Cart</a>
+                        <a class="dropdown-item waves-effect waves-light" href="/orderPage">My Orders</a>
+                        <a class="dropdown-item waves-effect waves-light cursor-pointer" onclick="logout()">Logout</a>
                     </div>
-                    <div id="category_body_id" name="category_filter_list" class="text-dark text-left collapse" data-parent="#category">
-                        <form class="card-body">
-                            <div class="form-check d-none">
-                                <label class="form-check-label" for="subcategory_id">
-                                    <input type="checkbox" class="form-check-input" id="subcategory_id" name="subcategory" value="subcategory_name">
-                                </label>
-                            </div>
-                        </form>
+                </li>
+                <li id="myCart" class="nav-item rounded-lg mx-2 d-none">
+                    <a class="nav-link text-light" href="/cartPage"><i class="fa fa-shopping-cart"> </i>  Cart</a>
+                </li>
+                <li id="customerSupport-button" class="nav-item bg-info rounded-lg mx-2 d-none">
+                    <a class="nav-link text-light" href="/customerSupportPage"><i class="fa fa-phone">  </i> Customer Support</a>
+                </li>
+                <li id="login-button" class="nav-item bg-info rounded-lg mx-2 d-none">
+                    <a class="nav-link text-light" href="/loginPage">Login/SignUp</a>
+                </li>
+                <li id="logout-button" class="nav-item bg-danger rounded-lg mx-2 d-none">
+                    <a class="nav-link text-light" onclick="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-------------------------------------------Navbar ends-------------------------------------------------------------->
+
+
+    <div class="d-sm-flex mt-3">
+
+        <!----------------------------------------------- Filters ----------------------------------------------------------------->
+        <div class="col-sm-2">
+            <div class="text-center text-light my-3">
+                <h4>Price Filter</h4>
+                <div class="dropdown-divider"></div>
+                <form class="my-2 form-inline justify-content-between">
+                    <label class="text-light" for="minPrice">Min Price:</label>
+                    <input type="number" class="form-control col-8 text-center" id="minPrice" onkeyup="searchProductsWithFilters()" min="0" placeholder="0">
+                </form>
+
+                <form class="my-2 form-inline justify-content-between">
+                    <label class="text-light" for="maxPrice">Max Price:</label>
+                    <input type="number" class="form-control col-8 text-center" id="maxPrice" onkeyup="searchProductsWithFilters()" min="0" placeholder="0">
+                </form>
+                <div class="dropdown-divider"></div>
+            </div>
+            <div class="my-3 text-center text-light">
+                <h4>Categories</h4>
+                <div class="dropdown-divider"></div>
+                <div id="category" onclick="searchProductsWithFilters()">
+                    <div id="category_template" class="card d-none">
+                        <div id="category_header" onclick="selectCategory(this)" class="card-header p-1 text-center">
+                            <a class="card-link text-center d-block" data-toggle="collapse" href="#category_body_id">
+                                Category Name
+                            </a>
+                        </div>
+                        <div id="category_body_id" name="category_filter_list" class="text-dark text-left collapse" data-parent="#category">
+                            <form class="card-body">
+                                <div class="form-check d-none">
+                                    <label class="form-check-label" for="subcategory_id">
+                                        <input type="checkbox" class="form-check-input" id="subcategory_id" name="subcategory" value="subcategory_name">
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="dropdown-divider"></div>
+            </div>
+
+        </div>
+        <!----------------------------------------------- Filters end----------------------------------------------------------------->
+        <div id="output" class="flex-flow col-sm-10">
+            <div id="product_display" class="d-flex flex-wrap justify-content-center">
+            </div>
+            <div id="product_Template" class="card p-3 m-3 d-none" style="width: 350px">
+                <img onload="checkForAdmin(this)" class="card-img-top" src="images/product_icon.png" width="50px" alt="Card image">
+                <div id="productId" class="card-body">
+                    <h4 class="card-title">Product Name</h4>
+                    <h5 class="text-muted">Category</h5>
+                    <h6 class="text-secondary"><i>Sub1, Sub2</i></h6>
+                    <p class="card-text my-4">Details</p>
+                    <div class="form-inline">
+                        <div class="text-success my-3 mx-auto p-2 border rounded ">Price</div>
+                        <button id="addToCart_button" class="btn btn-primary mx-auto" onclick="addToCart(this)">Add To Cart</button>
+                        <button id="modifyProduct_button" class="btn btn-danger mx-auto d-none" onclick="modifyProduct(this)">Modify This Product</button>
                     </div>
                 </div>
-
             </div>
-            <div class="dropdown-divider"></div>
-        </div>
 
-    </div>
-    <!----------------------------------------------- Filters end----------------------------------------------------------------->
-    <div id="output" class="flex-flow col-sm-10">
-        <div id="product_display" class="d-flex flex-wrap justify-content-center">
         </div>
-        <div id="product_Template" class="card p-3 m-3 d-none" style="width: 350px">
-            <img onload="checkForAdmin(this)" class="card-img-top" src="images/product_icon.png" width="50px" alt="Card image">
-            <div id="productId" class="card-body">
-                <h4 class="card-title">Product Name</h4>
-                <h5 class="text-muted">Category</h5>
-                <h6 class="text-secondary"><i>Sub1, Sub2</i></h6>
-                <p class="card-text my-4">Details</p>
-                <div class="form-inline">
-                    <div class="text-success my-3 mx-auto p-2 border rounded ">Price</div>
-                    <button id="addToCart_button" class="btn btn-primary mx-auto" onclick="addToCart(this)">Add To Cart</button>
-                    <button id="modifyProduct_button" class="btn btn-danger mx-auto d-none" onclick="modifyProduct(this)">Modify This Product</button>
-                </div>
-            </div>
-        </div>
-
     </div>
-</div>
 </body>
 
 </html>

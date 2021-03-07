@@ -7,25 +7,30 @@ function navbar() {
     if (role === "ADMIN") {
         document.getElementById("navbar-addProduct").classList.remove("d-none");
         document.getElementById("navbar-modifyProduct").classList.remove("d-none");
-        document.getElementById("login-button").classList.add("d-none");
         document.getElementById("logout-button").classList.remove("d-none");
         document.getElementById("customerSupport-button").classList.remove("d-none");
-    }
-    if (role === "USER") {
+    } else if (role === "USER") {
         document.getElementById("login-button").classList.add("d-none");
         document.getElementById("userName").classList.remove("d-none");
         document.getElementById("myCart").classList.remove("d-none");
         document.getElementById("logout-button").classList.remove("d-none");
-
+    } else {
+        document.getElementById("login-button").classList.remove("d-none");
     }
 }
-
 
 function logout(){
     let header=new Header("Authorization",token);
     sendRequest("/logout","GET",[header],null,function () {
         if(this.status===400){
             alert(this.responseText);
+        }
+        if(this.status===500){
+            alert(JSON.parse(this.responseText).message);
+            localStorage.removeItem("Authorization");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("role");
+            window.location="/";
         }
         if(this.status===200){
             alert("You have been logout successfully...");

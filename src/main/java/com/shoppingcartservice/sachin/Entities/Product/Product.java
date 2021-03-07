@@ -15,8 +15,6 @@ public class Product {
     @ManyToMany
     private List<Subcategory> subcategories;
 
-
-
     public long getProductId() {
         return productId;
     }

@@ -39,6 +39,8 @@ public class OrderService {
         Cart cart = cartRepo.findCartByUserProfile(user);
         if (cart == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your cart is Empty!!!");
+        if (user.getAddress() == null)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Please update your delivery address!!!");
 
         List<CartItem> cartItems = cart.getCartItems();
         if (cartItems.isEmpty())

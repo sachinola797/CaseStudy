@@ -2,6 +2,7 @@ package com.shoppingcartservice.sachin.Controllers;
 
 import com.shoppingcartservice.sachin.DTOs.UserProfileDTO;
 
+import com.shoppingcartservice.sachin.Services.BlackListTokenService;
 import com.shoppingcartservice.sachin.Services.JwtHelper;
 import com.shoppingcartservice.sachin.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
+    private BlackListTokenService blackListTokenService;
+    @Autowired
     private JwtHelper jwtHelper;
 
 
@@ -28,6 +31,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more fields are empty");
 
         return userService.signup(name,email,password,phone);
+    }
+
+    @GetMapping("/logoutFromAllDevices/{userID}")
+    public ResponseEntity<?> logoutFromAllDevices(@PathVariable("userID") Long userID,HttpServletRequest request){
+        if(!jwtHelper.getUserIdAuthenticated(userID,request))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your are not allowed to see this profile...");
+        return blackListTokenService.logoutFromAllDevices(userID);
     }
 
 
