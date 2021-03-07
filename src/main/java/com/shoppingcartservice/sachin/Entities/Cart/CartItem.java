@@ -7,16 +7,16 @@ import javax.persistence.*;
 @Entity
 public class CartItem {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartItemId;
+    private long cartItemId;
     private int quantity;
     @ManyToOne
     private Product product;
 
-    public int getCartItemId() {
+    public long getCartItemId() {
         return cartItemId;
     }
 
-    public void setCartItemId(int cartItemId) {
+    public void setCartItemId(long cartItemId) {
         this.cartItemId = cartItemId;
     }
 

@@ -23,23 +23,23 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@FormParam("name") String name,@FormParam("email") String email,@FormParam("password") String password) {
-        if(name==null || email==null || password==null)
+    public ResponseEntity<?> signup(@FormParam("name") String name,@FormParam("email") String email, @FormParam("phone") Long phone,@FormParam("password") String password) {
+        if(name==null || email==null || password==null || phone==null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more fields are empty");
 
-        return userService.signup(name,email,password);
+        return userService.signup(name,email,password,phone);
     }
 
 
     @GetMapping("/getProfile/{userID}")
-    public ResponseEntity<?> getProfile(@PathVariable("userID") Integer userID,HttpServletRequest request){
+    public ResponseEntity<?> getProfile(@PathVariable("userID") Long userID,HttpServletRequest request){
         if(!jwtHelper.getUserIdAuthenticated(userID,request))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your are not allowed to see this profile...");
         return userService.getProfile(userID);
     }
 
     @GetMapping("/getProfileByPhone/{phone}")
-    public ResponseEntity<?> getProfileByPhone(@PathVariable("phone") long phone){
+    public ResponseEntity<?> getProfileByPhone(@PathVariable("phone") Long phone){
         return userService.getProfileByPhone(phone);
     }
 
@@ -52,7 +52,4 @@ public class UserController {
 
         return userService.updateProfile(userProfileDTO);
     }
-
-
-
 }

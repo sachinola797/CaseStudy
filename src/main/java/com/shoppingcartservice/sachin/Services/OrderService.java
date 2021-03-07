@@ -33,7 +33,7 @@ public class OrderService {
     @Autowired
     private OrderItemRepo orderItemRepo;
 
-    public ResponseEntity<?> createOrder(Integer userId) {
+    public ResponseEntity<?> createOrder(Long userId) {
         UserProfile user = userProfileRepo.getUserProfileByUserID(userId);
 
         Cart cart = cartRepo.findCartByUserProfile(user);
@@ -64,7 +64,7 @@ public class OrderService {
         return ResponseEntity.ok().body(order);
     }
 
-    public ResponseEntity<?> getOrders(Integer userId) {
+    public ResponseEntity<?> getOrders(Long userId) {
         UserProfile user = userProfileRepo.getUserProfileByUserID(userId);
 
         List<Orders> orders=orderRepo.findOrderByUserProfileOrderByOrderIdDesc(user);
