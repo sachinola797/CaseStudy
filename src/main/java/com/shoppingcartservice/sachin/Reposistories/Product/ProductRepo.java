@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepo extends JpaRepository<Product,Long>, JpaSpecificationExecutor<Product> {
-    Product findProductByProductId(Long addressId);
+public interface ProductRepo extends JpaRepository<Product,Integer>, JpaSpecificationExecutor<Product> {
+    Product findProductByProductId(Integer addressId);
     //Product findProductByNameAndDetailsAndPriceAndProductCategoryAndProductSubcategories(String name, String details, double price, ProductCategory productCategory, List<ProductSubcategory> productSubcategories);
 
     List<Product> findProductsBySubcategoriesContains(Subcategory subcategory);

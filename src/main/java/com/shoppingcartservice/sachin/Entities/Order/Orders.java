@@ -9,7 +9,7 @@ import java.util.List;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long orderId;
+    private int orderId;
     private String orderStatus;
     @OneToMany
     @JoinColumn(name = "orderItems")
@@ -26,11 +26,11 @@ public class Orders {
         this.userProfile = userProfile;
     }
 
-    public long getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(long orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
