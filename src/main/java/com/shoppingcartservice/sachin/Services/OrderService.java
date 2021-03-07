@@ -33,12 +33,14 @@ public class OrderService {
     @Autowired
     private OrderItemRepo orderItemRepo;
 
-    public ResponseEntity<?> createOrder(Integer userId) {
+    public ResponseEntity<?> createOrder(Long userId) {
         UserProfile user = userProfileRepo.getUserProfileByUserID(userId);
 
         Cart cart = cartRepo.findCartByUserProfile(user);
         if (cart == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your cart is Empty!!!");
+        if (user.getAddress() == null)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Please update your delivery address!!!");
 
         List<CartItem> cartItems = cart.getCartItems();
         if (cartItems.isEmpty())
@@ -64,7 +66,7 @@ public class OrderService {
         return ResponseEntity.ok().body(order);
     }
 
-    public ResponseEntity<?> getOrders(Integer userId) {
+    public ResponseEntity<?> getOrders(Long userId) {
         UserProfile user = userProfileRepo.getUserProfileByUserID(userId);
 
         List<Orders> orders=orderRepo.findOrderByUserProfileOrderByOrderIdDesc(user);

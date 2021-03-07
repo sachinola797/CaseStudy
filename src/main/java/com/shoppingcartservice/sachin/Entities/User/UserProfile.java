@@ -1,17 +1,14 @@
 package com.shoppingcartservice.sachin.Entities.User;
 
-
-import com.shoppingcartservice.sachin.Entities.User.Address;
-
 import javax.persistence.*;
 
 @Entity
 public class UserProfile {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userID;
+    private long userID;
     private String name;
     private String email;
-    @Column(nullable = true,unique = true)
+    @Column(unique = true)
     private long phone;
     @OneToOne
     @JoinColumn(name = "addressID")
@@ -19,9 +16,10 @@ public class UserProfile {
 
     public UserProfile() {}
 
-    public UserProfile(String name, String email) {
+    public UserProfile(String name, String email, long phone) {
         this.name = name;
         this.email = email;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -56,7 +54,7 @@ public class UserProfile {
         this.address = address;
     }
 
-    public int getUserID() {
+    public long getUserID() {
         return userID;
     }
 

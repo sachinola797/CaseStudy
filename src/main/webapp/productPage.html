@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Add Product</title>
+    <title>Product Management</title>
     <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" color="red">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -37,8 +37,8 @@
     <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
         <a class="navbar-brand" href="/"><img src="images/logo.png" style="width: 40px" alt="site-logo"> Shopping Delight</a>
         <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb1,#navb2" aria-expanded="false">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="navbar-collapse collapse mx-auto" id="navb1">
             <ul class="navbar-nav text-center mr-auto">
                 <li class="nav-item d-none" id="navbar-addProduct" onclick="callingAddProductPage()">
@@ -57,7 +57,7 @@
                         <a class="dropdown-item waves-effect waves-light" href="/userProfilePage">My Profile</a>
                         <a class="dropdown-item waves-effect waves-light" href="/cartPage">My Cart</a>
                         <a class="dropdown-item waves-effect waves-light" href="/orderPage">My Orders</a>
-                        <a class="dropdown-item waves-effect waves-light" onclick="logout()">Logout</a>
+                        <a class="dropdown-item waves-effect waves-light cursor-pointer" onclick="logout()">Logout</a>
                     </div>
                 </li>
                 <li id="myCart" class="nav-item rounded-lg mx-2 d-none">
@@ -66,7 +66,7 @@
                 <li id="customerSupport-button" class="nav-item bg-info rounded-lg mx-2 d-none">
                     <a class="nav-link text-light" href="/customerSupportPage"><i class="fa fa-phone">  </i> Customer Support</a>
                 </li>
-                <li id="login-button" class="nav-item bg-info rounded-lg mx-2">
+                <li id="login-button" class="nav-item bg-info rounded-lg mx-2 d-none">
                     <a class="nav-link text-light" href="/loginPage">Login/SignUp</a>
                 </li>
                 <li id="logout-button" class="nav-item bg-danger rounded-lg mx-2 d-none">

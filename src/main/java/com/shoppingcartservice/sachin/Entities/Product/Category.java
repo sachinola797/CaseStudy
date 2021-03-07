@@ -6,18 +6,18 @@ import java.util.List;
 @Entity
 public class Category {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int categoryId;
+    private long categoryId;
     private String name;
 
     @OneToMany
     private List<Subcategory> subcategories;
 
 
-    public int getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 

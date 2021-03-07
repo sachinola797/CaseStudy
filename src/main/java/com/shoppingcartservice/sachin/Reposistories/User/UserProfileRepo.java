@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserProfileRepo extends JpaRepository<UserProfile,Integer> {
-    UserProfile getUserProfileByUserID(Integer userID);
+public interface UserProfileRepo extends JpaRepository<UserProfile,Long> {
+    UserProfile getUserProfileByUserID(Long userID);
     UserProfile getUserProfileByPhone(long phone);
+    UserProfile getUserProfileByEmail(String email);
 }

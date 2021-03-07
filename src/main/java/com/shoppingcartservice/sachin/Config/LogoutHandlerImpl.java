@@ -1,7 +1,9 @@
 package com.shoppingcartservice.sachin.Config;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Services.BlackListTokenService;
 import com.shoppingcartservice.sachin.Services.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,22 +22,15 @@ public class LogoutHandlerImpl extends
     JwtHelper jwtHelper;
     @Autowired
     UserCredentialsRepo userCredentialsRepo;
+    @Autowired
+    private BlackListTokenService blackListTokenService;
+
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
-        UserCredentials user=userCredentialsRepo.findByEmail(jwtHelper.getEmailFromJwt(httpServletRequest));
-        if(user.getToken()==null){
-            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            try {
-                httpServletResponse.getWriter().write("User has been already logged out !!!");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
+        DecodedJWT decodedToken = jwtHelper.getDecodedTokenFromJwt(httpServletRequest);
+        UserCredentials userCredentials=userCredentialsRepo.findByEmail(decodedToken.getSubject());
 
-        }
-
-        user.setToken(null);
-        userCredentialsRepo.save(user);
+        blackListTokenService.addTokenToBlackList(decodedToken, userCredentials);
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         httpServletResponse.setHeader("Content-Type","application/json");
         try {

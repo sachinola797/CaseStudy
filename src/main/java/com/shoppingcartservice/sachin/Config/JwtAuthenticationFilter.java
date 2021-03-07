@@ -3,6 +3,7 @@ package com.shoppingcartservice.sachin.Config;
 import com.auth0.jwt.JWT;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Services.BlackListTokenService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
@@ -25,10 +27,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private AuthenticationSuccessHandler successHandler = new LoginSuccessHandlerImpl();
     private AuthenticationFailureHandler failureHandler = new LoginFailureHandlerImpl();
     private UserCredentialsRepo userCredentialsRepo;
+    private BlackListTokenService blackListTokenService;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserCredentialsRepo userCredentialsRepo) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserCredentialsRepo userCredentialsRepo, BlackListTokenService blackListTokenService) {
         this.authenticationManager = authenticationManager;
         this.userCredentialsRepo=userCredentialsRepo;
+        this.blackListTokenService=blackListTokenService;
     }
 
     /* Trigger when we issue POST request to /login
@@ -52,26 +56,29 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // Grab principal
         UserPrincipal principal = (UserPrincipal) authResult.getPrincipal();
+        Date issueDate = new Date();
+        Date expiryDate = new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME);
 
         // Create JWT Token
         String token = JWT.create()
                 .withSubject(principal.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
+                .withJWTId(UUID.randomUUID().toString())
+                .withIssuedAt(issueDate)
+                .withExpiresAt(expiryDate)
                 .sign(HMAC512(JwtProperties.SECRET.getBytes()));
         UserCredentials user=userCredentialsRepo.findByEmail(principal.getUsername());
-        user.setToken(token);
-        userCredentialsRepo.save(user);
-        // Add token in response
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
         response.addHeader("userId",user.getUserProfile().getUserID()+"");
         response.addHeader("role",user.getRoles());
+
+        // cleanup expired black-listed tokens
+        blackListTokenService.cleanupTokens(user);
+
         successHandler.onAuthenticationSuccess(request, response, authResult);
-        //chain.doFilter(request,response);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-//        super.unsuccessfulAuthentication(request, response, failed);
         SecurityContextHolder.clearContext();
 
         if (logger.isDebugEnabled()) {
@@ -79,7 +86,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             logger.debug("Updated SecurityContextHolder to contain null Authentication");
             logger.debug("Delegating to authentication failure handler " + failureHandler);
         }
-
         failureHandler.onAuthenticationFailure(request, response, failed);
     }
 }

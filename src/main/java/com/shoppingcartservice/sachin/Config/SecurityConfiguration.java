@@ -1,6 +1,8 @@
 package com.shoppingcartservice.sachin.Config;
 
+import com.shoppingcartservice.sachin.Reposistories.User.BlackListTokenRepo;
 import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
+import com.shoppingcartservice.sachin.Services.BlackListTokenService;
 import com.shoppingcartservice.sachin.Services.UserPrincipalDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +23,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserPrincipalDetailsService userPrincipalDetailsService;
     @Autowired
     private UserCredentialsRepo userCredentialsRepo;
+    @Autowired
+    private BlackListTokenRepo blackListTokenRepo;
+    @Autowired
+    private BlackListTokenService blackListTokenService;
 
     @Autowired
     private LogoutHandlerImpl logoutHandler;
@@ -36,8 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // add jwt filters (1. authentication, 2. authorization)
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(),this.userCredentialsRepo))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userCredentialsRepo))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(),this.userCredentialsRepo, this.blackListTokenService))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userCredentialsRepo, this.blackListTokenRepo))
                 .authorizeRequests()
                 // configure access rules
                 .antMatchers("/order/{\\d+}/getOrders").hasAnyRole("USER","ADMIN")

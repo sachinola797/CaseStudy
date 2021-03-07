@@ -10,3 +10,11 @@ body{
 #searchString.form-control{
     border-radius: 0 5px 5px 0;
 }
+
+.nav-link {
+    cursor: pointer;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}

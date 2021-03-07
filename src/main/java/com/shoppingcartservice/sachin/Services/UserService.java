@@ -26,14 +26,17 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<?> signup(String name,String email,String password) {
+    public ResponseEntity<?> signup(String name,String email,String password,Long phone) {
         if(userCredentialsRepo.findByEmail(email)!=null)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User already exist!!!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User already with given email id!!!");
+        if(userProfileRepo.getUserProfileByPhone(phone)!=null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User already with given phone number!!!");
 
         UserCredentials user=new UserCredentials();
         UserProfile userProfile=new UserProfile();
         userProfile.setName(capitalise(name));
         userProfile.setEmail(email);
+        userProfile.setPhone(phone);
         userProfileRepo.save(userProfile);
 
         user.setEmail(email);
@@ -41,16 +44,15 @@ public class UserService {
         user.setUserProfile(userProfile);
         userCredentialsRepo.save(user);
         return ResponseEntity.ok("{\"result\": \"success\"}");
-
     }
 
     public ResponseEntity<?> updateProfile(UserProfileDTO userProfileDTO){
-        int userId=userProfileDTO.getUserID();
+        long userId=userProfileDTO.getUserID();
         String email=userProfileDTO.getEmail();
-        UserCredentials userCredentials=userCredentialsRepo.findByUserId(userId);
+        UserCredentials userCredentials=userCredentialsRepo.findByUserProfile_UserID(userId);
         UserCredentials verifyEmail=userCredentialsRepo.findByEmail(email);
         if(verifyEmail!=null){
-            if(verifyEmail.getUserId()!=userId)
+            if(verifyEmail.getUserId()!=userCredentials.getUserId())
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email Id is already taken!!!");
         }
         UserProfile verifyPhone=userProfileRepo.getUserProfileByPhone(userProfileDTO.getPhone());
@@ -73,7 +75,7 @@ public class UserService {
         return ResponseEntity.ok("User Details updated successfully!!!");
     }
 
-    public ResponseEntity<?> getProfile(Integer userId){
+    public ResponseEntity<?> getProfile(Long userId){
         UserProfile user=userProfileRepo.getUserProfileByUserID(userId);
         return ResponseEntity.ok().body(user);
     }

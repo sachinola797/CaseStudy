@@ -8,13 +8,13 @@ import java.util.List;
 @Entity
 public class Cart {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartId;
+    private long cartId;
     @OneToMany
     @JoinColumn(name="cartItems")
     private List<CartItem> cartItems;
     @OneToOne
     private UserProfile userProfile;
-    public int getCartId() {
+    public long getCartId() {
         return cartId;
     }
 
@@ -26,7 +26,7 @@ public class Cart {
         this.userProfile = userProfile;
     }
 
-    public void setCartId(int cartId) {
+    public void setCartId(long cartId) {
         this.cartId = cartId;
     }
 

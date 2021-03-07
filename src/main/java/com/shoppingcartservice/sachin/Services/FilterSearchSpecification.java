@@ -1,12 +1,9 @@
 package com.shoppingcartservice.sachin.Services;
 
 import com.shoppingcartservice.sachin.Entities.Product.Product;
-import com.shoppingcartservice.sachin.Entities.Product.Subcategory;
-import com.shoppingcartservice.sachin.Reposistories.Product.SubcategoryRepo;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

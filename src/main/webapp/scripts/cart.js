@@ -53,7 +53,6 @@ let setCart = function() {
     }
 };
 
-
 function updateProduct(Obj) {
     const productId=Obj.parentElement.parentElement.id;
     const quantity=Obj.children[0].value;
@@ -118,6 +117,10 @@ function placeOrder() {
             localStorage.removeItem("userId");
             localStorage.removeItem("role");
             window.location = "loginPage.html";
+        }
+        if (this.status===403){
+            alert(this.responseText);
+            window.location="/userProfilePage";
         }
         if(this.status===200){
             alert(JSON.parse(this.responseText).orderStatus);

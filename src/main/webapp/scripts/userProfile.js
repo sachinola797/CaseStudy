@@ -21,25 +21,22 @@ let insertDetails = function() {
         let userInfo = document.getElementById("user-info");
         userInfo.children[0].children[0].innerHTML += userData.name;
         userInfo.children[1].children[0].innerHTML += userData.email;
+        userInfo.children[2].children[0].innerHTML += userData.phone;
 
         document.getElementById("name").value = userData.name;
         document.getElementById("email").defaultValue = userData.email;
-
+        document.getElementById("phone").value = userData.phone;
 
         if (userData.address == null) {
-            userInfo.children[2].children[0].innerHTML += "Not provided yet !!!";
             userInfo.children[3].children[0].innerHTML = "<div class='alert alert-danger'><strong>Address is not provided yet !!!</strong><br>Please Update the your address...</div>";
             document.getElementById("edit-button").style.color = "red";
-
         }
         else {
-            userInfo.children[2].children[0].innerHTML += userData.phone;
             userInfo.children[3].children[0].children[0].children[0].innerHTML += userData.address.street;
             userInfo.children[3].children[0].children[1].children[0].innerHTML += userData.address.city;
             userInfo.children[3].children[0].children[2].children[0].innerHTML += userData.address.state;
             userInfo.children[3].children[0].children[3].children[0].innerHTML += userData.address.pincode;
 
-            document.getElementById("phone").value = userData.phone;
             document.getElementById("street").value = userData.address.street;
             document.getElementById("city").value = userData.address.city;
             document.getElementById("state").value = userData.address.state;
@@ -96,4 +93,19 @@ function submitUserProfileForm() {
         }
         return false;
     });
+}
+
+function logoutFromAllDevices() {
+    let header=new Header("Authorization",token);
+    sendRequest("/logoutFromAllDevices/" + userId,"GET",[header],null,function () {
+        if(this.status===200){
+            alert(this.responseText);
+            localStorage.removeItem("Authorization");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("role");
+            window.location="/";
+            return;
+        }
+        alert(this.responseText);
+    })
 }

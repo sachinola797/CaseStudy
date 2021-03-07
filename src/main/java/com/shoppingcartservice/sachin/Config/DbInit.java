@@ -1,6 +1,5 @@
 package com.shoppingcartservice.sachin.Config;
 
-import com.shoppingcartservice.sachin.DTOs.ProductDTO;
 import com.shoppingcartservice.sachin.Entities.User.UserCredentials;
 import com.shoppingcartservice.sachin.Entities.User.UserProfile;
 import com.shoppingcartservice.sachin.Reposistories.User.UserCredentialsRepo;
@@ -10,9 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class DbInit implements CommandLineRunner {
@@ -23,19 +20,20 @@ public class DbInit implements CommandLineRunner {
     @Autowired
     private UserProfileRepo userProfileRepo;
 
-
     @Override
     public void run(String... args) {
         UserCredentials adminCreds=userCredentialsRepo.findByEmail("admin@gmail.com");
         if(adminCreds==null){
-            UserProfile admin=new UserProfile("admin","admin@gmail.com");
+            UserProfile admin=new UserProfile("admin","admin@gmail.com", 1112223334);
             userProfileRepo.save(admin);
             adminCreds=new UserCredentials();
             adminCreds.setUserProfile(admin);
             adminCreds.setEmail("admin@gmail.com");
-            adminCreds.setPassword(passwordEncoder.encode("admin123"));
+            adminCreds.setPassword(passwordEncoder.encode("admin@1234"));
             adminCreds.setRoles("ADMIN");
             userCredentialsRepo.save(adminCreds);
+        } else {
+            adminCreds.setPassword(passwordEncoder.encode("admin@1234"));
         }
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Product {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
+    private long productId;
     private String name;
     private double price;
     private String details;
@@ -15,13 +15,11 @@ public class Product {
     @ManyToMany
     private List<Subcategory> subcategories;
 
-
-
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 

@@ -1,12 +1,9 @@
 package com.shoppingcartservice.sachin.DTOs;
 
-import com.shoppingcartservice.sachin.Entities.Product.Category;
-import com.shoppingcartservice.sachin.Entities.Product.Subcategory;
-
 import java.util.List;
 
 public class ProductDTO {
-    private int productId;
+    private long productId;
     private String name;
     private double price;
     private String details;
@@ -22,7 +19,6 @@ public class ProductDTO {
     }
 
     public ProductDTO(String name, double price, String details, String category, List<String> subcategories) {
-        this.productId = productId;
         this.name = name;
         this.price = price;
         this.details = details;
@@ -30,11 +26,11 @@ public class ProductDTO {
         this.subcategories = subcategories;
     }
 
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
