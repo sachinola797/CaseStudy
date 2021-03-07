@@ -29,11 +29,12 @@ public class DbInit implements CommandLineRunner {
             adminCreds=new UserCredentials();
             adminCreds.setUserProfile(admin);
             adminCreds.setEmail("admin@gmail.com");
-            adminCreds.setPassword(passwordEncoder.encode("admin@1234"));
+            adminCreds.setPassword(passwordEncoder.encode(System.getenv("ADMIN_PASSWORD")));
             adminCreds.setRoles("ADMIN");
             userCredentialsRepo.save(adminCreds);
         } else {
-            adminCreds.setPassword(passwordEncoder.encode("admin@1234"));
+            adminCreds.setPassword(passwordEncoder.encode(System.getenv("ADMIN_PASSWORD")));
+            userCredentialsRepo.save(adminCreds);
         }
     }
 }
